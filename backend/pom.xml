@@ -7,8 +7,8 @@
 	<packaging>jar</packaging>
 
 	<parent>
-		<groupId>onlus.manager</groupId>
-		<artifactId>spring-boot-vuejs</artifactId>
+		<groupId>com.dg</groupId>
+		<artifactId>farmtrack</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
