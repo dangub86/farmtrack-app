@@ -1,4 +1,4 @@
-# Onlus Manager
+# FarmTrack App
 A reusable Springboot app using Vue.js as frontend
 
 [![Build Status](https://travis-ci.org/prima-s/onlus-manager-test.svg?branch=test)](https://travis-ci.org/prima-s/onlus-manager-test)
