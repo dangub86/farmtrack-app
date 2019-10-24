@@ -1,13 +1,14 @@
 <template>
 <body class="bg">
+<div class="bar"></div>
   <div class="container">
     <div class="row">
-      <div class="col-md-5 text-center ">
+      <div class="col-md-6 offset-md-3 text-center ">
         <form action method="">
           
           <div class="form-login">
             <br>
-            <h4>Accesso riservato ai soci</h4>
+            <h4>Login</h4>
             <br>
 
             <input
@@ -44,24 +45,13 @@
           </div>
         </form>
       </div>
-      <div class="col-md-7 text-center ">
-        <div class="desc">
-          <br>
-          <h4>Parky Touch Rugby</h4>
-          <br>
-          <h5 class="test">
 
-           Il "Parky Touch Rugby" ed i suoi pionieri, la squadra dei "Bradirapidi", non smettono di destare 
-           entusiasmo e interesse di singoli e di istituzioni. [...] Quella del "Parky Touch Rugby" e dei suoi
-            "Bradirapidi", ora guidati da un allenatore ex rugbista e arbitro federale, è un'esperienza senza
-             precedenti e con prospettive di grande valore, anche nel campo della ricerca clinica. E soprattutto un
-            esempio di come lo sport possa essere davvero inclusivo e abbattere tutte le barriere.
-
-          </h5>
-        </div>
-      </div>
     </div>
   </div>
+  <br>
+  <br>
+  <br>
+  <br>
 </body>
 </template>
 
@@ -245,16 +235,14 @@ body {
   height: 150px;
 }
 .bg {
-  /* The image used */
-  background-image: url(../assets/hands.jpg);
+  background: lightgrey;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+}
 
-  /* Full height */
-  transform: scale(1.17);
-
-  /* Center and scale the image nicely */
-  background-position: top;
-  background-repeat: no-repeat;
-   background-size: cover;
+.bar {
+    height: 10vh;
+    background: limegreen;
 }
 
 .container {
