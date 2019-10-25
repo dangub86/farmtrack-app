@@ -13,7 +13,7 @@ A reusable Springboot app using Vue.js as frontend
 
 ![localhost-first-run](screenshots/localhost-first-run.png)
 
-A live deployment is available on Heroku: https://onlus-app.herokuapp.com
+A live deployment is available on Heroku: https://farmtrack-app.herokuapp.com
 
 ## Table of Contents  
 * [Setup Vue.js & Spring Boot](#setup-vuejs--spring-boot)
