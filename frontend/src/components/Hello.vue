@@ -1,11 +1,10 @@
 <template>
 <body class="bg">
-<div class="bar"></div>
+<div class="bar text-center text-white display-4">FarmTrack</div>
   <div class="container">
     <div class="row">
       <div class="col-md-6 offset-md-3 text-center ">
-        <form action method="">
-          
+        <form action method="">     
           <div class="form-login">
             <br>
             <h4>Login</h4>
@@ -19,9 +18,6 @@
               placeholder="username"
               required
             >
-            <br>
-            
-            <br>
             
             <input
               name="password"
@@ -32,6 +28,12 @@
               placeholder="password"
               required
             >
+           <br>
+
+             <button type="login" href class="btn btn-secondary btn-sm" onclick="document.getElementById('sign').style.display='block'">
+                  Sign In
+                  <i class="fa fa-sign-in"></i>
+                </button>
             <br>
             <br>
             <div class="wrapper">
@@ -46,6 +48,11 @@
         </form>
       </div>
 
+    <div id="sign" class="modal">
+      <Signin/>
+    </div>
+
+
     </div>
   </div>
   <br>
@@ -59,6 +66,7 @@
 <script>
 // import axios from 'axios'
 import { AXIOS } from "./http-common";
+import Signin from "./Signin";
 
 export default {
   name: "service",
@@ -71,6 +79,7 @@ export default {
       accesso:null,
       answer:null,
       response: [],
+      modal: "Signin",
       errors: [],
        service: {
           utente: '',
@@ -81,6 +90,9 @@ export default {
         showRetrievedUser: false
   }
 },
+  components: {
+    Signin
+  },
 methods: {
       // Fetches posts when the component is created.
       startchecker(){
@@ -243,6 +255,7 @@ body {
 .bar {
     height: 10vh;
     background: limegreen;
+    font-weight: 800;
 }
 
 .container {
@@ -250,9 +263,11 @@ body {
 }
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #ffffff !important;
+  color: #ffffff69 !important;
   opacity: 1; /* Firefox */
   font-size: 18px !important;
+  font-weight: 200 !important;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 .form-login {
   background-color: rgba(0, 0, 0, 0.55);
@@ -309,4 +324,27 @@ h5 {
   box-shadow: 0 1px 0 #cfcfcf;
   min-height: 450px;
 }
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 12.5%;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: #474e5d;
+  padding-top: 0px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto;
+  border: 1px solid #888;
+  width: 80%;
+}
+
 </style>

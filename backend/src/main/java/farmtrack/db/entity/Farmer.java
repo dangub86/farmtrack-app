@@ -3,25 +3,15 @@ package farmtrack.db.entity;
 import org.hibernate.search.annotations.DocumentId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@Document(collection = "farmers")
 public class Farmer {
-    @DocumentId
-    String id;
 
     String farmer_name;
     String farmer_surname;
     String farmer_email;
-    String farmer_pwd;
+    String pwd;
 
     public Farmer() {}
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getFarmer_name() {
         return farmer_name;
@@ -48,21 +38,20 @@ public class Farmer {
     }
 
     public String getFarmer_pwd() {
-        return farmer_pwd;
+        return pwd;
     }
 
     public void setFarmer_pwd(String farmer_pwd) {
-        this.farmer_pwd = farmer_pwd;
+        this.pwd = farmer_pwd;
     }
 
     @Override
     public String toString() {
         return "Farmer{" +
-                "id='" + id + '\'' +
-                ", farmer_name='" + farmer_name + '\'' +
+                "farmer_name='" + farmer_name + '\'' +
                 ", farmer_surname='" + farmer_surname + '\'' +
                 ", farmer_email='" + farmer_email + '\'' +
-                ", farmer_pwd='" + farmer_pwd + '\'' +
+                ", farmer_pwd='" + pwd + '\'' +
                 '}';
     }
 }
