@@ -2,6 +2,7 @@ package farmtrack.db.entity;
 
 import org.hibernate.search.annotations.DocumentId;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "farmers")
 public class Farmer {
@@ -9,6 +10,7 @@ public class Farmer {
     String farmer_name;
     String farmer_surname;
     String farmer_email;
+    @Field("farmer_pwd")
     String pwd;
 
     public Farmer() {}

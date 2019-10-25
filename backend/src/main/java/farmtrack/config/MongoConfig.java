@@ -3,8 +3,10 @@ package farmtrack.config;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 
+@Configuration
 public class MongoConfig extends AbstractMongoConfiguration {
 
     private MongoClientURI getMongoUri() {
