@@ -31,23 +31,39 @@ public class BackendController {
     @Autowired
     private FarmerRepository farmerRepository;
 
-    @RequestMapping(path = "/restlogin", method = RequestMethod.POST)
+    @RequestMapping(path = "/login", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody String accessoSocio (@RequestParam("utente") String requestNomeUtente, @RequestParam("password")  String requestPassword) {
+    public @ResponseBody String login (@RequestParam("email") String requestEmail, @RequestParam("password")  String requestPassword) {
         System.out.println("logincontroller password: "+ requestPassword);
-        System.out.println("logincontroller utente: "+ requestNomeUtente);
-        Farmer farmer = farmerService.getFarmer(requestNomeUtente, requestPassword);
-        System.out.println(farmer);
-        List<Farmer> users = farmerRepository.findAll(new Sort(Sort.Direction.ASC, "farmer_name"));
-        System.out.println(users);
+        System.out.println("logincontroller email: "+ requestEmail);
+        Farmer farmer = farmerService.getFarmer(requestEmail, requestPassword);
         if(!Objects.isNull(farmer)){
-            return farmer.getFarmer_name();
+            System.out.println(farmer.getId());
+            return farmer.getId();
         }
         else{
             System.out.println("nome utente o password errati");
             return "nome utente o password errati";
 
         }
+    }
+
+    @RequestMapping(path = "/signin", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public @ResponseBody boolean signiIn (@RequestParam("name") String name, @RequestParam("surname")  String surname,
+        @RequestParam("email") String email, @RequestParam("pwd") String pwd ) {
+        System.out.println("signincontroller name: "+ name);
+        System.out.println("signincontroller surname: "+ surname);
+        System.out.println("signincontroller email: "+ email);
+        System.out.println("signincontroller pwd: "+ pwd);
+        Farmer newFarmer = new Farmer();
+        newFarmer.setFarmer_name(name);
+        newFarmer.setFarmer_surname(surname);
+        newFarmer.setFarmer_email(email);
+        newFarmer.setPwd(pwd);
+        farmerService.save(newFarmer);
+
+        return true;
     }
   
 

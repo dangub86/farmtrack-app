@@ -48,7 +48,7 @@
             <br>
             <div class="wrapper">
               <span class="group-btn">
-                <button type="login" href class="btn btn-primary btn-md" @mouseenter="validator()" @click="startchecker()">
+                <button href class="btn btn-primary btn-md" @mouseenter="signin()">
                   Sign in
                   <i class="fa fa-sign-in"></i>
                 </button>
@@ -101,9 +101,31 @@ methods: {
       // Fetches posts when the component is created.
       startchecker(){
         
+      },
+            signin() {
+              this.params = new URLSearchParams()
+              this.params.append('name', this.service.name)
+              this.params.append('surname', this.service.surname)
+              this.params.append('email', this.service.email)
+              this.params.append('password', this.service.password)
+              AXIOS.post(`/signin`, this.params)
+                .then(response => {
+
+                  //.then(response => {
+                  // JSON responses are automatically parsed.
+                  this.answer = response.data
+                  console.log(this.answer+"This is answer from our checker")
+                  console.log('Check of enter')
+                  this.showResponse = true
+
+                })
+                .catch(e => {
+                  this.errors.push(e)
+                })
+           }
       }
 }
-}
+
 
 </script>
 

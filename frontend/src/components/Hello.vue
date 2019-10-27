@@ -11,11 +11,11 @@
             <br>
 
             <input
-              name="utente"
+              name="email"
               type=" text"
-              v-model="service.utente"
+              v-model="service.email"
               class="form-control input-sm"
-              placeholder="username"
+              placeholder="email"
               required
             >
             
@@ -82,7 +82,7 @@ export default {
       modal: "Signin",
       errors: [],
        service: {
-          utente: '',
+          email: '',
           password: ''
     },
         showResponse: false,
@@ -108,9 +108,9 @@ methods: {
       },
       validator () {
         this.params = new URLSearchParams()
-        this.params.append('utente', this.service.utente)
+        this.params.append('email', this.service.email)
         this.params.append('password', this.service.password)
-        AXIOS.post(`/restlogin`, this.params)
+        AXIOS.post(`/login`, this.params)
           .then(response => {
 
             //.then(response => {

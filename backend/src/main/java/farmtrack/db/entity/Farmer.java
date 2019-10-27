@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document(collection = "farmers")
 public class Farmer {
 
+    String id;
     String farmer_name;
     String farmer_surname;
     String farmer_email;
@@ -14,6 +15,22 @@ public class Farmer {
     String pwd;
 
     public Farmer() {}
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
 
     public String getFarmer_name() {
         return farmer_name;
@@ -37,14 +54,6 @@ public class Farmer {
 
     public void setFarmer_email(String farmer_email) {
         this.farmer_email = farmer_email;
-    }
-
-    public String getFarmer_pwd() {
-        return pwd;
-    }
-
-    public void setFarmer_pwd(String farmer_pwd) {
-        this.pwd = farmer_pwd;
     }
 
     @Override
