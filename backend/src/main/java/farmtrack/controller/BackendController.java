@@ -1,8 +1,5 @@
 package farmtrack.controller;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoDatabase;
-import farmtrack.config.MongoConfig;
 import farmtrack.db.entity.Farmer;
 import farmtrack.db.repo.FarmerRepository;
 import farmtrack.db.service.FarmerService;
@@ -48,7 +45,7 @@ public class BackendController {
         }
     }
 
-    @RequestMapping(path = "/signin", method = RequestMethod.POST)
+    @RequestMapping(path = "/sign", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody boolean signiIn (@RequestParam("name") String name, @RequestParam("surname")  String surname,
         @RequestParam("email") String email, @RequestParam("pwd") String pwd ) {

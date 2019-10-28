@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 offset-md-3 text-center ">
-        <form class="form" action method="">     
+        <form action method="">
           <div class="form-login">
             <br>
             <h4>SIGN IN</h4>
@@ -48,7 +48,7 @@
             <br>
             <div class="wrapper">
               <span class="group-btn">
-                <button href class="btn btn-primary btn-md" @mouseenter="signin()">
+                <button href class="btn btn-primary btn-md" @click="signin()">
                   Sign in
                   <i class="fa fa-sign-in"></i>
                 </button>
@@ -107,8 +107,8 @@ methods: {
               this.params.append('name', this.service.name)
               this.params.append('surname', this.service.surname)
               this.params.append('email', this.service.email)
-              this.params.append('password', this.service.password)
-              AXIOS.post(`/signin`, this.params)
+              this.params.append('pwd', this.service.password)
+              AXIOS.post(`/sign`, this.params)
                 .then(response => {
 
                   //.then(response => {
