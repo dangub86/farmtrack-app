@@ -76,7 +76,7 @@ export default {
       msg: "HowTo call REST-Services:",
       checking:null,
       params:null,
-      accesso:null,
+      id:null,
       answer:null,
       response: [],
       modal: "Signin",
@@ -97,11 +97,9 @@ methods: {
       // Fetches posts when the component is created.
       startchecker(){
         if(this.checking===true){
-          window.location.href= "/#/callservice?livello="+this.accesso;
+          window.location.href= "/#/callservice?id="+this.id;
         }
         else{
-          //this.accesso=null;
-          /* this.params=null; */
           window.location.href="/#/";
         }
         
@@ -112,34 +110,24 @@ methods: {
         this.params.append('password', this.service.password)
         AXIOS.post(`/login`, this.params)
           .then(response => {
+            this.answer = response.data;
+            console.log(response.data);
+            console.log(this.answer + " -> This is answer from our checker");
+            this.showResponse = true;
 
-            //.then(response => {
-            // JSON responses are automatically parsed.
-            this.answer = response.data
-            console.log(this.answer+"This is answer from our checker")
-            console.log('Check of enter')
-            this.showResponse = true
-             
-
-            if(this.answer =="A" || this.answer == "B" || this.answer == "C"){
-              console.log('This is the entrance to menu page')
-              this.accesso=this.answer;
-              //bus.$emit('form-submitted',this.accesso);
-              
+            if(this.answer != ""){
+              console.log('This is the entrance to menu page');
+              this.id=this.answer;
               this.checking=true;
-              //window.location.href= "/#/callservice"
-              
             }
             else{
-              //this.params=null;
+            console.log('checking false');
               this.checking=false;
-              //window.location.href="/#/"
             }
-            //this.startchecker();
             
           })
           .catch(e => {
-            this.errors.push(e)
+            this.errors.push(e);
           })
      }
 }

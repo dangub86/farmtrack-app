@@ -40,7 +40,7 @@ public class BackendController {
         }
         else{
             System.out.println("nome utente o password errati");
-            return "nome utente o password errati";
+            return "";
 
         }
     }
