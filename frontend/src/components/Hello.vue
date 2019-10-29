@@ -74,7 +74,7 @@ export default {
   data() {
     return {
       msg: "HowTo call REST-Services:",
-      checking:null,
+      checking: false,
       params:null,
       id:null,
       answer:null,
@@ -110,24 +110,24 @@ methods: {
         this.params.append('password', this.service.password)
         AXIOS.post(`/login`, this.params)
           .then(response => {
-            this.answer = response.data;
-            console.log(response.data);
-            console.log(this.answer + " -> This is answer from our checker");
-            this.showResponse = true;
+            this.answer = response.data
+            console.log(response.data)
+            console.log(this.answer + " -> This is answer from our checker")
+            this.showResponse = true
 
             if(this.answer != ""){
-              console.log('This is the entrance to menu page');
-              this.id=this.answer;
-              this.checking=true;
+              console.log('This is the entrance to menu page')
+              this.id=this.answer
+              this.checking=true
             }
             else{
-            console.log('checking false');
+              console.log('checking false')
               this.checking=false;
             }
             
           })
           .catch(e => {
-            this.errors.push(e);
+            this.errors.push(e)
           })
      }
 }
