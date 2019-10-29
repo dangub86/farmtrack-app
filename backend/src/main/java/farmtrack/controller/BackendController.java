@@ -1,18 +1,14 @@
 package farmtrack.controller;
 
 import farmtrack.db.entity.Farmer;
-import farmtrack.db.repo.FarmerRepository;
 import farmtrack.db.service.FarmerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 @RestController()
@@ -24,9 +20,6 @@ public class BackendController {
 
     @Autowired
     private FarmerService farmerService;
-
-    @Autowired
-    private FarmerRepository farmerRepository;
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
