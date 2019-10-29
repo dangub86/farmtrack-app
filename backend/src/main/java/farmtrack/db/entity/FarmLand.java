@@ -2,6 +2,9 @@ package farmtrack.db.entity;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Document(collection = "lands")
 public class FarmLand {
     String id;
@@ -11,6 +14,7 @@ public class FarmLand {
     int width;
     int gradient;
     String composition;
+    List<Tree> treeList;
 
     public String getId() {
         return id;
@@ -68,6 +72,20 @@ public class FarmLand {
         this.composition = composition;
     }
 
+    public List<Tree> getTreeList() {
+        List<Tree> listCopy = new ArrayList<>(treeList);
+        return listCopy;
+    }
+
+    public boolean addTree(Tree tree) {
+        if (!treeList.contains(tree)) {
+            this.treeList.add(tree);
+            return true;
+        }
+
+        return false;
+    }
+
     @Override
     public String toString() {
         return "FarmLand{" +
@@ -78,6 +96,7 @@ public class FarmLand {
                 ", width=" + width +
                 ", gradient=" + gradient +
                 ", composition='" + composition + '\'' +
+                ", treeList=" + treeList +
                 '}';
     }
 }

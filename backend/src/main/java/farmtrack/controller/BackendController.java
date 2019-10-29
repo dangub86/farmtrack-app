@@ -1,7 +1,11 @@
 package farmtrack.controller;
 
+import farmtrack.db.entity.FarmLand;
 import farmtrack.db.entity.Farmer;
+import farmtrack.db.entity.Tree;
 import farmtrack.db.service.FarmerService;
+import farmtrack.db.service.FarmlandService;
+import farmtrack.db.service.TreeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,13 @@ public class BackendController {
 
     @Autowired
     private FarmerService farmerService;
+
+    @Autowired
+    private FarmlandService farmlandService;
+
+    @Autowired
+    private TreeService treeService;
+
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
@@ -55,6 +66,46 @@ public class BackendController {
 
         return true;
     }
-  
 
+    @RequestMapping(path = "/addLand", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public @ResponseBody boolean addLand(@RequestParam("name") String name, @RequestParam("unity") String unity,
+                                         @RequestParam("height") int height, @RequestParam("width") int width,
+                                         @RequestParam("gradient") int gradient, @RequestParam("composition") String composition ) {
+
+        System.out.println("Adding land with name " + name);
+        FarmLand farmLand = new FarmLand();
+        farmLand.setName(name);
+        farmLand.setUnity(unity);
+        farmLand.setHeight(height);
+        farmLand.setWidth(width);
+        farmLand.setGradient(gradient);
+        farmLand.setComposition(composition);
+        farmlandService.save(farmLand);
+
+        return true;
+    }
+
+    @RequestMapping(path = "/addTree", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public @ResponseBody boolean addTree(@RequestParam("name") String name, @RequestParam("genre") String genre,
+                                         @RequestParam("variety") String variety, @RequestParam("age") Tree.Age age,
+                                         @RequestParam("landName") String landName ) {
+
+        FarmLand farmLand = farmlandService.getLandByName(landName);
+        System.out.println("Farmland: " + farmLand);
+        System.out.println("Adding tree with name " + name);
+        Tree tree = new Tree();
+        tree.setName(name);
+        tree.setGenre(genre);
+        tree.setVariety(variety);
+        tree.setAge(age);
+        tree.setLand(farmLand);
+        treeService.save(tree);
+
+        farmLand.addTree(tree);
+        farmlandService.save(farmLand);
+
+        return true;
+    }
 }

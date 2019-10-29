@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TreeRepository extends MongoRepository<Tree, String> {
+    Tree getTreeByName(String name);
 }

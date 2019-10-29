@@ -12,6 +12,7 @@ public class Tree {
     String genre;
     String variety;
     Age age;
+    FarmLand land;
 
     public String getId() {
         return id;
@@ -53,6 +54,14 @@ public class Tree {
         this.age = age;
     }
 
+    public FarmLand getLand() {
+        return land;
+    }
+
+    public void setLand(FarmLand land) {
+        this.land = land;
+    }
+
     @Override
     public String toString() {
         return "Tree{" +
@@ -61,6 +70,8 @@ public class Tree {
                 ", genre='" + genre + '\'' +
                 ", variety='" + variety + '\'' +
                 ", age=" + age +
+                ", land=" + land +
                 '}';
     }
+
 }
