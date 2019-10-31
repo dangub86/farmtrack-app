@@ -2,6 +2,20 @@
   <div class="servicemy">
     <div id="nav" class="flex bg-dark">
 
+ <b-dropdown
+        id="ddown-offset"
+        offset="25"
+        text="Aggiungi"
+        variant=" btn-outline-light btn-block"
+        class="m-2 w-15"
+      >
+        <b-dropdown-item
+          onclick="document.getElementById('addLand_id').style.display='block'"
+          style="width:auto;"
+          @click="closeAll()"
+        >Aggiungi Terreno</b-dropdown-item>
+         </b-dropdown>
+
       <b-button
         offset="25"
         text="Logout"
@@ -13,24 +27,10 @@
     </div>
 
 <body>
-     <div class="btn-group dropup">
-       <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         Dropup
-       </button>
-       <div class="dropdown-menu">
-         <!-- Dropdown menu links -->
-         <ul>
-         <li>Link 1</li>
-         <li>Link 2</li>
-         </ul>
-       </div>
-     </div>
-    <div id="id01" class="modal">
-      <RegistraUtente/>
+    <div id="addLand_id" class="modal">
+      <AddLand/>
     </div>
-    <div id="id02" class="modal">
-      <CambiaPassword/>
-    </div>
+  
 
     </body>
   </div>
@@ -38,8 +38,7 @@
 
 <script>
 import { AXIOS } from "./http-common";
-import RegistraUtente from "./RegistraUtente";
-import CambiaPassword from "./CambiaPassword";
+import AddLand from "./AddLand";
 
 export default {
   name: "service",
@@ -48,23 +47,16 @@ export default {
     return {
       response: [],
       errors: [],
-      modal: "id01",
-      modal: "id02",
+      modal: "addLand_id",
       accesso: null,
-      all: ["id01", "id02"]
+      all: ["addLand_id"]
     };
   },
   created() {
-    this.accesso = this.$route.query.livello;
+    //this.accesso = this.$route.query.livello;
   },
-  //   beforeRouteEnter(to, from, next) {
-  //   if (this.accesso != "") {
-  //     next();
-  //   }
-  // },
-  components: {
-    RegistraUtente,
-    CambiaPassword
+   components: {
+    AddLand
   },
   methods: {
     closeAll() {
@@ -110,50 +102,6 @@ export default {
   justify-content: center;
 }
 
-.test > .btn-group > .dropdown-menu:active {
-  display: block;
-  margin-bottom: 5px;
-  position: static;
-}
-#ddown-offset {
-  height: 50px;
-}
-.dropup {
-    position: absolute;
-    bottom: 1vh;
-    right: 8vw;
-}
-body {
-  margin-top: 2%;
-}
-.fa-fw {
-  width: 2em;
-}
-h1,
-h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  size: 100%;
-}
-* {
-  box-sizing: border-box;
-}
 
 /* The Modal (background) */
 .modal {
@@ -161,16 +109,17 @@ body {
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;
-  top: 12.5%;
+  top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: #474e5d;
+  background-color: #474e5d65;
   padding-top: 0px;
 }
 
 /* Modal Content/Box */
 .modal-content {
+  top: 8%;
   background-color: #fefefe;
   margin: 5% auto 15% auto;
   border: 1px solid #888;

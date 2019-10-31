@@ -13,7 +13,7 @@
             <input
               name="email"
               type=" text"
-              v-model="service.email"
+              v-model="login.email"
               class="form-control input-sm"
               placeholder="email"
               required
@@ -22,7 +22,7 @@
             <input
               name="password"
               type="password"
-              v-model="service.password"
+              v-model="login.password"
               @keydown.enter.prevent="addCategory"
               class="form-control input-sm chat-input"
               placeholder="password"
@@ -69,7 +69,7 @@ import { AXIOS } from "./http-common";
 import Signin from "./Signin";
 
 export default {
-  name: "service",
+  name: "login",
 
   data() {
     return {
@@ -81,7 +81,7 @@ export default {
       response: [],
       modal: "Signin",
       errors: [],
-       service: {
+       login: {
           email: '',
           password: ''
     },
@@ -106,8 +106,8 @@ methods: {
       },
       validator () {
         this.params = new URLSearchParams()
-        this.params.append('email', this.service.email)
-        this.params.append('password', this.service.password)
+        this.params.append('email', this.login.email)
+        this.params.append('password', this.login.password)
         AXIOS.post(`/login`, this.params)
           .then(response => {
             this.answer = response.data
