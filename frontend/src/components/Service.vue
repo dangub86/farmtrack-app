@@ -5,9 +5,9 @@
  <b-dropdown
         id="ddown-offset"
         offset="25"
-        text="Aggiungi"
-        variant=" btn-outline-light btn-block"
-        class="m-2 w-15"
+        text="+"
+        variant=" btn-block"
+        class="m-2 w-15 addBtn"
       >
         <b-dropdown-item
           onclick="document.getElementById('addLand_id').style.display='block'"
@@ -30,10 +30,28 @@
     <div id="addLand_id" class="modal">
       <AddLand/>
     </div>
-     <br>
-     	<div id="landsTable">
-        <b-table striped hover :items="lands" :fields="fields" />
+
+     <div class="input-group mb-3" v-if="lands.length === 1">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Terreno</label>
+          </div>
+      <select class="custom-select" id="inputGroupSelect00">
+        <option>
+          {{ lands[0].name }}
+        </option>
+      </select>
+        </div>
+
+    <div class="input-group mb-3" v-if="lands.length > 1">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Terreno</label>
       </div>
+  <select class="custom-select" id="inputGroupSelect01" v-model="selectedLand">
+    <option v-for="land in lands" :selected="lands[0].name">
+      {{ land.name }}
+    </option>
+  </select>
+    </div>
 
 
     </body>
@@ -51,7 +69,9 @@ export default {
       errors: [],
       modal: "addLand_id",
       accesso: null,
-      lands: null,
+      lands: [],
+      firstLand: null,
+      selectedLand: null,
       fields: [
                 {
                   key: 'name',
@@ -116,7 +136,18 @@ export default {
 <style scoped>
 .flex {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+}
+#ddown-offset {
+    color: white !important;
+}
+.addBtn {
+    background: green;
+    border-radius: 50%;
+}
+#ddown-offset.dropdown-toggle::after {
+   display: none;
+   border-color: red;
 }
 /* The Modal (background) */
 .modal {
