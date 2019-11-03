@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @RestController()
@@ -107,5 +108,11 @@ public class BackendController {
         farmlandService.save(farmLand);
 
         return true;
+    }
+
+    @RequestMapping(path="/lands", method = RequestMethod.GET)
+    public @ResponseBody
+    List<FarmLand> getSoci() {
+        return farmlandService.getLands();
     }
 }

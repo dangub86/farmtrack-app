@@ -3,6 +3,7 @@ package farmtrack.db.entity;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Document(collection = "lands")
@@ -14,7 +15,7 @@ public class FarmLand {
     int width;
     int gradient;
     String composition;
-    List<Tree> treeList;
+    List<Tree> treeList = Collections.emptyList();
 
     public String getId() {
         return id;

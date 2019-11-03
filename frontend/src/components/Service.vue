@@ -30,7 +30,11 @@
     <div id="addLand_id" class="modal">
       <AddLand/>
     </div>
-  
+     <br>
+     	<div id="landsTable">
+        <b-table striped hover :items="lands" :fields="fields" />
+      </div>
+
 
     </body>
   </div>
@@ -39,22 +43,35 @@
 <script>
 import { AXIOS } from "./http-common";
 import AddLand from "./AddLand";
-
 export default {
   name: "service",
-
   data() {
     return {
       response: [],
       errors: [],
       modal: "addLand_id",
       accesso: null,
+      lands: null,
+      fields: [
+                {
+                  key: 'name',
+                  label:'Nome',
+                  sortable:false
+                }
+               ],
       all: ["addLand_id"]
     };
   },
   created() {
-    //this.accesso = this.$route.query.livello;
-  },
+         AXIOS.get(`/lands`)
+                 .then(response => {
+                     this.lands=response.data;
+                     console.log(this.lands);
+                   })
+                   .catch(e => {
+                     this.errors.push(e)
+                   })
+    },
    components: {
     AddLand
   },
@@ -101,8 +118,6 @@ export default {
   display: flex;
   justify-content: center;
 }
-
-
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -116,7 +131,6 @@ export default {
   background-color: #474e5d65;
   padding-top: 0px;
 }
-
 /* Modal Content/Box */
 .modal-content {
   top: 8%;
@@ -125,7 +139,6 @@ export default {
   border: 1px solid #888;
   width: 80%;
 }
-
 .logout {
   width: auto;
 }

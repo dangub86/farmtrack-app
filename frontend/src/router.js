@@ -24,7 +24,7 @@ export default new Router({
       name: 'Land',
       component: Land
     }
-    
+
   ]
-  
+
 })

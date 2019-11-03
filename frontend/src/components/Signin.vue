@@ -33,7 +33,7 @@
               placeholder="email"
               required
             >
-            
+
             <input
               name="password"
               type="password"
@@ -73,10 +73,8 @@
 <script>
 // import axios from 'axios'
 import { AXIOS } from "./http-common";
-
 export default {
   name: "service",
-
   data() {
     return {
       msg: "HowTo call REST-Services:",
@@ -100,7 +98,7 @@ export default {
 methods: {
       // Fetches posts when the component is created.
       startchecker(){
-        
+
       },
             signin() {
               this.params = new URLSearchParams()
@@ -110,14 +108,12 @@ methods: {
               this.params.append('pwd', this.service.password)
               AXIOS.post(`/sign`, this.params)
                 .then(response => {
-
                   //.then(response => {
                   // JSON responses are automatically parsed.
                   this.answer = response.data
                   console.log(this.answer+"This is answer from our checker")
                   console.log('Check of enter')
                   this.showResponse = true
-
                 })
                 .catch(e => {
                   this.errors.push(e)
@@ -125,16 +121,12 @@ methods: {
            }
       }
 }
-
-
 </script>
 
 <style scoped>
-
-
-input { 
-	width: 100%; 
-	margin-bottom: 10px; 
+input {
+	width: 100%;
+	margin-bottom: 10px;
 	background: rgba(0,0,0,0.3);
 	border: none;
 	outline: none;
@@ -182,18 +174,14 @@ input {
     padding: 50px !important;
   }
 }
-
 @media (min-width: 641px) {
   body {
     font-size: 1.2rem;
   }
-
-
   h5 {
     font-size: 14px;
   }
 }
-
 @media (min-width: 960px) {
   body {
     font-size: 1.4rem;
@@ -202,7 +190,6 @@ input {
     font-size: 20px;
   }
 }
-
 @media (min-width: 1100px) {
   body {
     font-size: 1.6rem;
@@ -214,14 +201,12 @@ input {
     margin-left: 40px;
   }
 }
-
 h5.test {
   word-wrap: break-word;
 }
 body {
   height: 100%;
 }
-
 .uploading-image {
   display: flex;
 }
@@ -234,12 +219,10 @@ body {
   max-height: 100vh !important;
   overflow: hidden !important;
 }
-
 .bar {
     height: 10vh;
     background: limegreen;
 }
-
 .container {
   padding: 110px;
 }
@@ -277,18 +260,15 @@ h5 {
   padding-bottom: 10px;
   text-align: center;
 }
-
 .form-control {
   border-radius: 10px;
 }
 .text-white {
   color: white !important;
 }
-
 .wrapper {
   text-align: center;
 }
-
 .a {
   font-weight: bold;
   color: #2c3e50;
