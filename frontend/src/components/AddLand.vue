@@ -34,7 +34,7 @@
       </label>
       <br />
       <input
-        type="text"
+        type="numeric"
         v-model="land.height"
         style="width:40%;"
         class="input_100"
@@ -43,7 +43,7 @@
         required
       />
       <input
-        type="text"
+        type="numeric"
         v-model="land.width"
         style="width:40%;"
         class="input_100"
@@ -56,7 +56,7 @@
         <b>Inclinazione(°)</b>
       </label>
       <input
-        type="text"
+        type="numeric"
         v-model="land.gradient"
         class="input_100"
         placeholder="Inclinazione"
@@ -68,7 +68,7 @@
       </label>
       <div style="width:100%">
         <input
-          type="email"
+          type="text"
           v-model="land.composition"
           class="input_100"
           placeholder="Composizione"

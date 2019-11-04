@@ -6,8 +6,9 @@
         id="ddown-offset"
         offset="25"
         text="+"
-        variant=" btn-block"
-        class="m-2 w-15 addBtn"
+        variant="btn-block text-white bg-success"
+        class="m-2 w-15"
+        no-caret
       >
         <b-dropdown-item
           onclick="document.getElementById('addLand_id').style.display='block'"
@@ -22,8 +23,11 @@
         variant=" btn-block"
         class="m-2 w-15 logout btn-outline-light btn-block"
         @click="logout()"
-      >Logout</b-button>
+      ><i class="fas fa-sign-out-alt"></i></b-button>
 
+<div>
+  <b-img src="../../public/logout-icon.png" fluid alt="Logout"></b-img>
+</div>
     </div>
 
 <body>
@@ -47,12 +51,13 @@
         <label class="input-group-text" for="inputGroupSelect01">Terreno</label>
       </div>
   <select class="custom-select" id="inputGroupSelect01" v-model="selectedLand">
-    <option v-for="land in lands" :selected="lands[0].name">
+    <option v-for="land in lands" :key="land.id" :selected="lands[0].name">
       {{ land.name }}
     </option>
   </select>
     </div>
 
+<i class="fas fa-sign-out-alt"></i>
 
     </body>
   </div>
@@ -138,16 +143,9 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-#ddown-offset {
-    color: white !important;
-}
 .addBtn {
     background: green;
     border-radius: 50%;
-}
-#ddown-offset.dropdown-toggle::after {
-   display: none;
-   border-color: red;
 }
 /* The Modal (background) */
 .modal {
