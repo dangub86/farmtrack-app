@@ -1,66 +1,81 @@
 <template>
-  <div class="servicemy">
-    <div id="nav" class="flex bg-dark">
+<div class="servicemy">
+  <!-- NavBar -->
+  <div id="nav" class="flex bg-dark">
+    <b-dropdown
+      id="ddown-offset"
+      offset="25"
+      text="+"
+      variant="btn-block text-white bg-success btn-lg"
+      class="m-2 w-15"
+      no-caret
+    >
+      <b-dropdown-item
+        onclick="document.getElementById('addLand_id').style.display='block'"
+        style="width:auto;"
+        @click="closeAll()"
+      >Aggiungi Terreno</b-dropdown-item>
+    </b-dropdown>
 
- <b-dropdown
-        id="ddown-offset"
-        offset="25"
-        text="+"
-        variant="btn-block text-white bg-success"
-        class="m-2 w-15"
-        no-caret
-      >
-        <b-dropdown-item
-          onclick="document.getElementById('addLand_id').style.display='block'"
-          style="width:auto;"
-          @click="closeAll()"
-        >Aggiungi Terreno</b-dropdown-item>
-         </b-dropdown>
+    <b-button
+      offset="25"
+      text="Logout"
+      variant=" btn-block"
+      class="m-2 w-15 logout btn-block btn-lg"
+      @click="logout()"
+    >
+      <i class="fas fa-sign-out-alt text-white"></i>
+    </b-button>
+  </div>
 
-      <b-button
-        offset="25"
-        text="Logout"
-        variant=" btn-block"
-        class="m-2 w-15 logout btn-outline-light btn-block"
-        @click="logout()"
-      ><i class="fas fa-sign-out-alt"></i></b-button>
-
-<div>
-  <b-img src="../../public/logout-icon.png" fluid alt="Logout"></b-img>
-</div>
-    </div>
-
-<body>
+  <body>
+    <!-- Modals -->
     <div id="addLand_id" class="modal">
-      <AddLand/>
+      <AddLand />
     </div>
 
-     <div class="input-group mb-3" v-if="lands.length === 1">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect01">Terreno</label>
-          </div>
+    <!-- Land Selection -->
+    <div class="input-group mb-3" v-if="lands.length === 1">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Terreno</label>
+      </div>
       <select class="custom-select" id="inputGroupSelect00">
-        <option>
-          {{ lands[0].name }}
-        </option>
+        <option>{{ lands[0].name }}</option>
       </select>
-        </div>
+    </div>
 
     <div class="input-group mb-3" v-if="lands.length > 1">
       <div class="input-group-prepend">
         <label class="input-group-text" for="inputGroupSelect01">Terreno</label>
       </div>
-  <select class="custom-select" id="inputGroupSelect01" v-model="selectedLand">
-    <option v-for="land in lands" :key="land.id" :selected="lands[0].name">
-      {{ land.name }}
-    </option>
-  </select>
+      <select class="custom-select" id="inputGroupSelect01" v-model="selectedLand">
+        <option v-for="land in lands" :key="land.id" :selected="lands[0].name">{{ land.name }}</option>
+      </select>
     </div>
 
-<i class="fas fa-sign-out-alt"></i>
+    <!-- Land Details -->
+    <div>
+      <b-card :title="selectedLand" body-class="text-center" header-tag="nav">
+        <template v-slot:header>
+          <b-nav card-header tabs>
+            <b-nav-item active>Dettagli</b-nav-item>
+            <b-nav-item disabled>Alberi</b-nav-item>
+          </b-nav>
+        </template>
 
-    </body>
-  </div>
+        <b-card-text class="text-left"><i style="text-align: center;">Dettagli relativi al terreno selezionato.</i><br>
+        <span>
+           <strong>H x W:</strong> {{selectedLand.height}} x {{selectedLand.width}} <br>
+           <strong>Inclinazione:</strong> {{selectedLand.gradient}}° <br>
+           <strong>Composizione:</strong> Terreno prevalentemente {{selectedLand.composition}}.
+        </span>
+        </b-card-text>
+
+        <b-button variant="primary">Go somewhere</b-button>
+      </b-card>
+    </div>
+  </body>
+</div>
 </template>
 
 <script>
@@ -76,28 +91,43 @@ export default {
       accesso: null,
       lands: [],
       firstLand: null,
-      selectedLand: null,
+      selectedLand: {
+        id: null,
+        name: null,
+        height: null,
+        width: null,
+        gradient: null,
+        composition: null
+      },
       fields: [
-                {
-                  key: 'name',
-                  label:'Nome',
-                  sortable:false
-                }
-               ],
+        {
+          key: "name",
+          label: "Nome",
+          sortable: false
+        }
+      ],
       all: ["addLand_id"]
     };
   },
   created() {
-         AXIOS.get(`/lands`)
-                 .then(response => {
-                     this.lands=response.data;
-                     console.log(this.lands);
-                   })
-                   .catch(e => {
-                     this.errors.push(e)
-                   })
-    },
-   components: {
+    AXIOS.get(`/lands`)
+      .then(response => {
+        this.lands = response.data;
+        console.log(this.lands);
+        if (this.lands.length == 1) {
+           this.selectedLand.id = this.lands[0].id;
+          this.selectedLand.name = this.lands[0].name;
+          this.selectedLand.height = this.lands[0].height;
+          this.selectedLand.width = this.lands[0].width;
+          this.selectedLand.gradient = this.lands[0].gradient;
+          this.selectedLand.composition = this.lands[0].composition;
+        }
+      })
+      .catch(e => {
+        this.errors.push(e);
+      });
+  },
+  components: {
     AddLand
   },
   methods: {
@@ -112,7 +142,7 @@ export default {
     },
     logout() {
       this.accesso = null;
-      window.location.href="/#/";
+      window.location.href = "/#/";
     },
     // Fetches posts when the component is created.
     callRestService() {
@@ -139,13 +169,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.centerize {
+  text-align: center !important;
+}
 .flex {
   display: flex;
   justify-content: space-between;
 }
 .addBtn {
-    background: green;
-    border-radius: 50%;
+  background: green;
+  border-radius: 50%;
 }
 /* The Modal (background) */
 .modal {
