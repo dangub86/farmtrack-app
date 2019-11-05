@@ -33,6 +33,12 @@
     <div id="addLand_id" class="modal">
       <AddLand />
     </div>
+    <div id="addElement_id" class="modal">
+          <AddElement />
+    </div>
+    <div id="addTree_id" class="modal">
+              <AddTree />
+    </div>
 
     <!-- Land Selection -->
     <div class="input-group mb-3" v-if="lands.length === 1">
@@ -63,15 +69,21 @@
           </b-nav>
         </template>
 
-        <b-card-text class="text-left"><i style="text-align: center;">Dettagli relativi al terreno selezionato.</i><br>
+        <b-card-text class="text-left">
+        <div style="text-align:center;"><i>Dettagli relativi al terreno selezionato.</i></div><br>
+        <br>
         <span>
-           <strong>H x W:</strong> {{selectedLand.height}} x {{selectedLand.width}} <br>
+           <strong>H x W:</strong> {{selectedLand.height}} x {{selectedLand.width}} ({{selectedLand.unity == 1 ? 'm2' : 'ha'}}) <br>
            <strong>Inclinazione:</strong> {{selectedLand.gradient}}° <br>
            <strong>Composizione:</strong> Terreno prevalentemente {{selectedLand.composition}}.
         </span>
         </b-card-text>
 
-        <b-button variant="primary">Go somewhere</b-button>
+        <b-button
+            onclick="document.getElementById('addElement_id').style.display='block'"
+            variant="primary bg-success">
+            Aggiungi elemento
+        </b-button>
       </b-card>
     </div>
   </body>
@@ -81,6 +93,9 @@
 <script>
 import { AXIOS } from "./http-common";
 import AddLand from "./AddLand";
+import AddElement from "./AddElement";
+import AddTree from "./AddTree";
+
 export default {
   name: "service",
   data() {
@@ -88,11 +103,14 @@ export default {
       response: [],
       errors: [],
       modal: "addLand_id",
+      modal: "addElement_id",
+      modal: "addTree_id",
       accesso: null,
       lands: [],
       firstLand: null,
       selectedLand: {
         id: null,
+        unity: null,
         name: null,
         height: null,
         width: null,
@@ -106,7 +124,7 @@ export default {
           sortable: false
         }
       ],
-      all: ["addLand_id"]
+      all: ["addLand_id", "addElement_id", "addTree_id"]
     };
   },
   created() {
@@ -117,6 +135,7 @@ export default {
         if (this.lands.length == 1) {
            this.selectedLand.id = this.lands[0].id;
           this.selectedLand.name = this.lands[0].name;
+          this.selectedLand.unity = this.lands[0].unity;
           this.selectedLand.height = this.lands[0].height;
           this.selectedLand.width = this.lands[0].width;
           this.selectedLand.gradient = this.lands[0].gradient;
@@ -128,7 +147,9 @@ export default {
       });
   },
   components: {
-    AddLand
+    AddLand,
+    AddElement,
+    AddTree
   },
   methods: {
     closeAll() {

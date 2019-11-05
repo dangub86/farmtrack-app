@@ -30,9 +30,8 @@
             >
            <br>
 
-             <button type="login" href class="btn btn-secondary btn-sm" onclick="document.getElementById('sign').style.display='block'">
+             <button href class="btn btn-secondary btn-sm" onclick="document.getElementById('sign').style.display='block'">
                   Sign In
-                  <i class="fa fa-sign-in"></i>
                 </button>
             <br>
             <br>
@@ -40,7 +39,6 @@
               <span class="group-btn">
                 <button type="login" href class="btn btn-primary btn-md" @mouseenter="validator()" @click="startchecker()">
                   Login
-                  <i class="fa fa-sign-in"></i>
                 </button>
               </span>
             </div>
