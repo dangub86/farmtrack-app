@@ -104,8 +104,8 @@ public class BackendController {
         tree.setLand(farmLand);
         Tree savedTree = treeService.save(tree);
         System.out.println("Età pianta: " + savedTree.getAgeEnum());
-        farmLand.addTree(savedTree);
-        farmlandService.save(farmLand);
+       // farmLand.addTree(savedTree);
+        //farmlandService.save(farmLand);
 
         return savedTree.getId();
     }
