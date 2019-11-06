@@ -61,11 +61,11 @@
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
           <button
-            type="submit"
             @click="createUser()"
             class="btn-success btn-block"
             value="Sign In"
           >Conferma</button>
+        
         </div>
       </div>
     </div>
@@ -77,6 +77,7 @@
 import { AXIOS } from "./http-common";
 export default {
   name: "tree",
+  props: ["idland"],
   data() {
     return {
       response: [],
@@ -86,8 +87,7 @@ export default {
         name: "",
         genre: null,
         variety: "",
-        age: "",
-        farmland: ""
+        age: ""
       },
       options: [
         {value: null, text: "Scegli..."},
@@ -116,15 +116,17 @@ export default {
       params.append("genre", this.tree.genre);
       params.append("variety", this.tree.variety);
       params.append("age", this.tree.age);
-      params.append("farmland", this.tree.farmland);
+      params.append("land", this.idland);
 
       AXIOS.post(`/addTree`, params)
         .then(response => {
           //JSON responses are automatically parsed.
-          this.response = response.data;
+       //   this.response = response.data;
           this.tree.id = response.data;
           console.log(response.data);
-          this.showResponse = true;
+     //     this.showResponse = true;
+           setTimeout(() => this.showResponse=true, 5000);
+           console.log(this.showResponse);
         })
         .catch(e => {
           this.errors.push(e);

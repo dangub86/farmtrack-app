@@ -1,6 +1,7 @@
 package farmtrack.db.service;
 
 import farmtrack.db.entity.FarmLand;
+import org.bson.types.ObjectId;
 
 import java.util.List;
 
@@ -9,4 +10,6 @@ public interface FarmlandService {
     void save(FarmLand farmLand);
 
     List<FarmLand> getLands();
+
+    FarmLand getLandById(String land_id);
 }

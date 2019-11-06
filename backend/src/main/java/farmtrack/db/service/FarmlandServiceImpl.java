@@ -2,6 +2,7 @@ package farmtrack.db.service;
 
 import farmtrack.db.entity.FarmLand;
 import farmtrack.db.repo.FarmlandRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -31,5 +32,13 @@ public class FarmlandServiceImpl implements FarmlandService {
     @Override
     public List<FarmLand> getLands() {
         return farmlandRepository.findAll();
+    }
+
+    @Override
+    public FarmLand getLandById(String land_id) {
+        System.out.println(land_id);
+        ObjectId oId = new ObjectId(land_id);
+        System.out.println(oId);
+        return farmlandRepository.getFarmLandById(oId);
     }
 }

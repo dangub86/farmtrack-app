@@ -14,10 +14,10 @@ public class TreeServiceImpl implements TreeService {
     private TreeRepository treeRepository;
 
     @Override
-    public void save(Tree tree) {
+    public Tree save(Tree tree) {
         if (Objects.isNull(tree)) {
             throw new IllegalArgumentException("Tree must not be null");
         }
-        treeRepository.save(tree);
+        return treeRepository.save(tree);
     }
 }

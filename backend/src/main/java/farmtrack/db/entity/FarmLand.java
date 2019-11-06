@@ -15,7 +15,7 @@ public class FarmLand {
     int width;
     int gradient;
     String composition;
-    List<Tree> treeList = Collections.emptyList();
+    List<Tree> treeList = new ArrayList<>();
 
     public String getId() {
         return id;

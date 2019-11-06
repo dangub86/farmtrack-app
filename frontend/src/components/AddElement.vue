@@ -24,7 +24,7 @@
 
     <!-- Modals -->
     <div id="addTree_id" class="modal">
-        <AddTree />
+        <AddTree :idland="this.landid" />
     </div>
 
   </form>
@@ -36,7 +36,8 @@ import { AXIOS } from "./http-common";
 import AddTree from "./AddTree";
 
 export default {
-  name: "element",
+  name: "FarmElement",
+  props: ["landid"],
   data() {
     return {
       response: [],
@@ -160,7 +161,7 @@ hr {
   background-color: #fefefe;
   margin: 5% auto 15% auto;
   border: 1px solid #888;
-  width: 80%;
+  width: 90%;
 }
 
 </style>

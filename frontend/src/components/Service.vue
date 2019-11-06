@@ -34,10 +34,7 @@
       <AddLand />
     </div>
     <div id="addElement_id" class="modal">
-          <AddElement />
-    </div>
-    <div id="addTree_id" class="modal">
-              <AddTree />
+          <AddElement :landid="selectedLand.id" />
     </div>
 
     <!-- Land Selection -->
@@ -60,8 +57,8 @@
     </div>
 
     <!-- Land Details -->
-    <div>
-      <b-card :title="selectedLand" body-class="text-center" header-tag="nav">
+    <div  v-if="lands.length > 0">
+      <b-card :title="selectedLand.name" body-class="text-center" header-tag="nav">
         <template v-slot:header>
           <b-nav card-header tabs>
             <b-nav-item active>Dettagli</b-nav-item>
@@ -104,7 +101,6 @@ export default {
       errors: [],
       modal: "addLand_id",
       modal: "addElement_id",
-      modal: "addTree_id",
       accesso: null,
       lands: [],
       firstLand: null,
@@ -124,7 +120,7 @@ export default {
           sortable: false
         }
       ],
-      all: ["addLand_id", "addElement_id", "addTree_id"]
+      all: ["addLand_id", "addElement_id"]
     };
   },
   created() {
@@ -148,8 +144,7 @@ export default {
   },
   components: {
     AddLand,
-    AddElement,
-    AddTree
+    AddElement
   },
   methods: {
     closeAll() {
@@ -220,7 +215,7 @@ export default {
   background-color: #fefefe;
   margin: 5% auto 15% auto;
   border: 1px solid #888;
-  width: 80%;
+  width: 90%;
 }
 .logout {
   width: auto;
