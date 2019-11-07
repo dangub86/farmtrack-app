@@ -15,7 +15,7 @@ public class FarmLand {
     int width;
     int gradient;
     String composition;
-    List<Tree> treeList = new ArrayList<>();
+    List<String> treeList = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -73,14 +73,14 @@ public class FarmLand {
         this.composition = composition;
     }
 
-    public List<Tree> getTreeList() {
-        List<Tree> listCopy = new ArrayList<>(treeList);
+    public List<String> getTreeList() {
+        List<String> listCopy = new ArrayList<>(treeList);
         return listCopy;
     }
 
-    public boolean addTree(Tree tree) {
-        if (!treeList.contains(tree)) {
-            this.treeList.add(tree);
+    public boolean addTree(String treeId) {
+        if (!treeList.contains(treeId)) {
+            this.treeList.add(treeId);
             return true;
         }
 

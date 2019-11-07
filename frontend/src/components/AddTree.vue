@@ -52,16 +52,14 @@
         required
       />
       <br />
-
       <hr />
-
       <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
           <button @click="closeAll()" class="cancelbtn btn-block">Annulla</button>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
           <button
-            @click="createUser()"
+            @click.prevent="addTree()"
             class="btn-success btn-block"
             value="Sign In"
           >Conferma</button>
@@ -75,6 +73,8 @@
 
 <script>
 import { AXIOS } from "./http-common";
+import EventBus from '../eventBus'
+
 export default {
   name: "tree",
   props: ["idland"],
@@ -110,7 +110,7 @@ export default {
       }
     },
     // Fetches posts when the component is created.
-    createUser() {
+    addTree() {
       var params = new URLSearchParams();
       params.append("name", this.tree.name);
       params.append("genre", this.tree.genre);
@@ -121,16 +121,18 @@ export default {
       AXIOS.post(`/addTree`, params)
         .then(response => {
           //JSON responses are automatically parsed.
-       //   this.response = response.data;
+          this.response = response.data;
           this.tree.id = response.data;
           console.log(response.data);
-     //     this.showResponse = true;
-           setTimeout(() => this.showResponse=true, 5000);
-           console.log(this.showResponse);
+          this.showResponse = true;
+          console.log(this.showResponse);
+          EventBus.$emit('TREE_ADDED', this.tree.id);
+          this.closeAll();
         })
         .catch(e => {
           this.errors.push(e);
         });
+
     }
   }
 };

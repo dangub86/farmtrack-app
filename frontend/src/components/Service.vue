@@ -62,7 +62,7 @@
         <template v-slot:header>
           <b-nav card-header tabs>
             <b-nav-item active>Dettagli</b-nav-item>
-            <b-nav-item disabled>Alberi</b-nav-item>
+            <b-nav-item :disabled="noTreePresent">Alberi</b-nav-item>
           </b-nav>
         </template>
 
@@ -75,7 +75,8 @@
            <strong>Composizione:</strong> Terreno prevalentemente {{selectedLand.composition}}.
         </span>
         </b-card-text>
-
+        <p>{{treeAdded}}</p>
+        <p>{{selectedLand.id}}</p>
         <b-button
             onclick="document.getElementById('addElement_id').style.display='block'"
             variant="primary bg-success">
@@ -89,6 +90,7 @@
 
 <script>
 import { AXIOS } from "./http-common";
+import EventBus from '../eventBus'
 import AddLand from "./AddLand";
 import AddElement from "./AddElement";
 import AddTree from "./AddTree";
@@ -104,6 +106,8 @@ export default {
       accesso: null,
       lands: [],
       firstLand: null,
+      treeAdded: null,
+      noTreePresent: true,
       selectedLand: {
         id: null,
         unity: null,
@@ -129,7 +133,7 @@ export default {
         this.lands = response.data;
         console.log(this.lands);
         if (this.lands.length == 1) {
-           this.selectedLand.id = this.lands[0].id;
+          this.selectedLand.id = this.lands[0].id;
           this.selectedLand.name = this.lands[0].name;
           this.selectedLand.unity = this.lands[0].unity;
           this.selectedLand.height = this.lands[0].height;
@@ -141,6 +145,39 @@ export default {
       .catch(e => {
         this.errors.push(e);
       });
+  },
+  updated() {
+     console.log("Service has been updated");
+
+     EventBus.$on('TREE_ADDED', (payload) => {
+           this.treeAdded = payload;
+         });
+
+         if(this.treeAdded != null) {
+            console.log("Tree added is not null");
+            //var params = new URLSearchParams();
+            //params.append("selectedland", this.selectedLand.name);
+            //params.append("tree", this.treeAdded);
+
+              AXIOS.post(`/addTreelist`, {
+                        params: {
+                            land: this.selectedLand.id,
+                            tree: this.treeAdded
+                        }})
+                      .then(response => {
+                        console.log("Response Data:" + response.data);
+                        this.treeAdded = null;
+                        this.noTreePresent = false;
+                  }).catch(e => {
+                        this.errors.push(e);
+                  });
+           } else {
+                 console.log("treeAdded is null");
+           }
+
+  },
+  mounted() {
+    console.log("Service has been mounted");
   },
   components: {
     AddLand,

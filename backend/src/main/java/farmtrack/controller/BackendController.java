@@ -104,10 +104,22 @@ public class BackendController {
         tree.setLand(farmLand);
         Tree savedTree = treeService.save(tree);
         System.out.println("Età pianta: " + savedTree.getAgeEnum());
-       // farmLand.addTree(savedTree);
-        //farmlandService.save(farmLand);
 
         return savedTree.getId();
+    }
+
+    @RequestMapping(path = "/addTreelist", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public @ResponseBody String addTreeToLand(@RequestParam("land") String land, @RequestParam("tree") String treeId) {
+
+       // FarmLand farmLand = farmlandService.getLandById(land);
+        FarmLand farmLand = farmlandService.getLandById(land);
+        System.out.println("Farmland: " + farmLand);
+        System.out.println("Adding tree with id " + treeId);
+        farmLand.addTree(treeId);
+        farmlandService.save(farmLand);
+
+        return "";
     }
 
     @RequestMapping(path="/lands", method = RequestMethod.GET)
