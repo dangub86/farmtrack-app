@@ -41,4 +41,12 @@ public class FarmlandServiceImpl implements FarmlandService {
         System.out.println(oId);
         return farmlandRepository.getFarmLandById(oId);
     }
+
+    @Override
+    public boolean hasTree(String land_id) {
+        ObjectId oId = new ObjectId(land_id);
+        FarmLand farmland = farmlandRepository.getFarmLandById(oId);
+
+        return farmland.getTreeList().size() > 0;
+    }
 }

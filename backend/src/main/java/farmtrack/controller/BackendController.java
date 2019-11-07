@@ -124,7 +124,19 @@ public class BackendController {
 
     @RequestMapping(path="/lands", method = RequestMethod.GET)
     public @ResponseBody
-    List<FarmLand> getSoci() {
+    List<FarmLand> getLands() {
         return farmlandService.getLands();
+    }
+
+    @RequestMapping(path="/landHasTree", method = RequestMethod.POST)
+    public @ResponseBody
+    boolean landHasTree(@RequestParam("land") String land) {
+        return farmlandService.hasTree(land);
+    }
+
+    @RequestMapping(path="/trees", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Tree> getTrees() {
+        return treeService.getTrees();
     }
 }
