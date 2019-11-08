@@ -125,8 +125,11 @@ export default {
           this.tree.id = response.data;
           console.log(response.data);
           this.showResponse = true;
-          console.log(this.showResponse);
-          EventBus.$emit('TREE_ADDED', this.tree.id);
+          const payload = {
+                    id: this.tree.id,
+                    updated: true
+            };
+          EventBus.$emit('TREE_ADDED', payload);
           this.closeAll();
         })
         .catch(e => {

@@ -75,7 +75,7 @@
            <strong>Composizione:</strong> Terreno prevalentemente {{selectedLand.composition}}.
         </span>
         </b-card-text>
-
+        <p class="d-none">{{updated}}</p>
         <b-button
             onclick="document.getElementById('addElement_id').style.display='block'"
             variant="primary bg-success">
@@ -106,6 +106,7 @@ export default {
       lands: [],
       firstLand: null,
       treeAdded: null,
+      updated: false,
       hasTrees: false,
       selectedLand: {
         id: null,
@@ -127,6 +128,7 @@ export default {
     };
   },
   created() {
+  console.log("Service has been created");
     AXIOS.get(`/lands`)
       .then(response => {
         this.lands = response.data;
@@ -145,11 +147,12 @@ export default {
         this.errors.push(e);
       });
   },
-  updated() {
+  beforeUpdate() {
      console.log("Service beforeUpdate");
 
      EventBus.$on('TREE_ADDED', (payload) => {
-           this.treeAdded = payload;
+           this.treeAdded = payload.id;
+           this.updated = payload.updated;
          });
 
          if(this.treeAdded != null) {
@@ -170,8 +173,8 @@ export default {
            }
 
   },
-  beforeUpdate() {
-    console.log("Service has been updated");
+  updated() {
+    console.log("Service has been mounted");
 
             let params = new URLSearchParams();
             params.append("land", this.selectedLand.id);
@@ -183,6 +186,7 @@ export default {
                       }).catch(e => {
                             this.errors.push(e);
                       });
+
   },
   components: {
     AddLand,
