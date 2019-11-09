@@ -13,10 +13,6 @@
 
 <body class="bg">
 
-<div id="sign" class="modal">
-      <Signin/>
-    </div>
-
 <div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100 p-t-30 p-b-50">
@@ -43,6 +39,7 @@
               type="password"
               v-model="login.password"
               @keydown.enter.prevent="addCategory"
+              @mouseleave="validator()"
               class="input100"
               placeholder="password"
               required
@@ -51,7 +48,11 @@
 					</div>
 
 					<div class="container-login100-form-btn m-t-32">
-						<button type="login" class="login100-form-btn" @mouseenter="validator()" @click="startchecker()">
+						<button 
+              type="login" 
+              class="login100-form-btn" 
+              @click="startchecker()" 
+              :disabled="!checking">
 							Login
 						</button>
 					</div>
@@ -61,71 +62,16 @@
 		</div>
 	</div>
 
+<div id="sign" class="modal">
+      <Signin/>
+</div>
 
-
-<!--
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 offset-md-3 text-center ">
-        <form action method="">     
-          <div class="form-login">
-            <br>
-            <h4>Login</h4>
-            <br>
-
-            <input
-              name="email"
-              type=" text"
-              v-model="login.email"
-              class="form-control input-sm"
-              placeholder="email"
-              required
-            >
-            
-            <input
-              name="password"
-              type="password"
-              v-model="login.password"
-              @keydown.enter.prevent="addCategory"
-              class="form-control input-sm chat-input"
-              placeholder="password"
-              required
-            >
-           <br>
-
-             <button href class="btn btn-secondary btn-sm" onclick="document.getElementById('sign').style.display='block'">
-                  Sign In
-                </button>
-            <br>
-            <br>
-            <div class="wrapper">
-              <span class="group-btn">
-                <button type="login" href class="btn btn-primary btn-md" @mouseenter="validator()" @click="startchecker()">
-                  Login
-                </button>
-              </span>
-            </div>
-          </div>
-        </form>
-      </div>
-
-    
-
-
-    </div>
-  </div>
-  <br>
-  <br>
-  <br>
-  <br>
-  -->
 </body>
 </div>
 </template>
 
 
 <script>
-// import axios from 'axios'
 import { AXIOS } from "./http-common";
 import Signin from "./Signin";
 
@@ -197,37 +143,12 @@ methods: {
 
 </script>
 
-<style scoped>
+<style>
 
 .flex {
   display: flex;
   justify-content: space-between;
 }
-
-input { 
-	width: 100%; 
-	margin-bottom: 10px; 
-	background: rgba(0,0,0,0.3);
-	border: none;
-	outline: none;
-	padding: 10px;
-	font-size: 13px;
-	color: #fff;
-	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
-	border: 1px solid rgba(0,0,0,0.3);
-	border-radius: 4px;
-	box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
-	-webkit-transition: box-shadow .5s ease;
-	-moz-transition: box-shadow .5s ease;
-	-o-transition: box-shadow .5s ease;
-	-ms-transition: box-shadow .5s ease;
-	transition: box-shadow .5s ease;
-}
-
-
-
-
-
 
 /* The Modal (background) */
 .modal {
@@ -235,7 +156,7 @@ input {
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;
-  top: 12.5%;
+  top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
@@ -350,7 +271,6 @@ label {
 
 /*---------------------------------------------*/
 button {
-	outline: none !important;
 	border: none;
 	background: transparent;
 }
@@ -479,7 +399,7 @@ iframe {
 
   display: block;
   width: 100%;
-  height: 50px;
+  height: 70px;
   background: white;
   padding: 0 10px 0 80px;
   -webkit-transition: all 0.4s;
@@ -541,6 +461,7 @@ iframe {
 
 .input100:focus {
   padding-left: 60px;
+  height: 80px;
 }
 
 .input100:focus + .focus-input100::after {
@@ -579,6 +500,12 @@ iframe {
   justify-content: center;
 }
 
+.login100-form-btn:disabled { 
+  background: transparent;
+  opacity: .3;
+}
+
+
 .login100-form-btn {
   font-family: Ubuntu-Bold;
   font-size: 18px;
@@ -594,13 +521,13 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 0 20px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   min-width: 160px;
   height: 42px;
-  border-radius: 21px;
+  border-radius: 11px;
 
-  background: #078136e8;
+  background: #0bbe50e8;
   background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
   background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
   background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
@@ -631,14 +558,6 @@ iframe {
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
   transition: all 0.4s;
-}
-
-.login100-form-btn:hover {
-  background-color: transparent;
-}
-
-.login100-form-btn:hover:before {
-  opacity: 1;
 }
 
 

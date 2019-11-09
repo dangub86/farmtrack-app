@@ -1,71 +1,76 @@
 <template>
 <body class="bg">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 offset-md-3 text-center ">
-        <form action method="">
-          <div class="form-login">
-            <br>
-            <h4>SIGN IN</h4>
-            <br>
-            <input
+
+<div class="limiter">
+ 
+		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+     <span @click="closeAll()" class="close" title="Close Modal">&times;</span>
+			<div class="wrap-login100 p-t-30 p-b-50">
+				<span class="login100-form-title p-b-41">
+					SIGN IN
+				</span>
+				<form class="login100-form validate-form p-b-33 p-t-5" action method="">
+
+					<div class="wrap-input100" >
+				<input
               name="name"
               type=" text"
               v-model="service.name"
-              class="form-control input-sm"
+              class="input100"
               placeholder="name"
               required
             >
-             <input
+						<span class="focus-input100" ></span>
+					</div>
+
+					<div class="wrap-input100 validate-input">
+				<input
               name="surname"
               type=" text"
               v-model="service.surname"
-              class="form-control input-sm"
+              class="input100"
               placeholder="surname"
               required
             >
+						<span class="focus-input100" ></span>
+					</div>
 
-            <input
+          	<div class="wrap-input100 validate-input">
+			 <input
               name="email"
               type=" text"
               v-model="service.email"
-              class="form-control input-sm"
+              class="input100"
               placeholder="email"
               required
             >
+						<span class="focus-input100" ></span>
+					</div>
 
-            <input
+          	<div class="wrap-input100 validate-input">
+		   <input
               name="password"
               type="password"
               v-model="service.password"
               @keydown.enter.prevent="addCategory"
-              class="form-control input-sm chat-input"
+              class="input100"
               placeholder="password"
               required
             >
-           <br>
-            <br>
-            <br>
-            <div class="wrapper">
-              <span class="group-btn">
-                <button href class="btn btn-primary btn-md" @click="signin()">
-                  Sign in
-                  <i class="fa fa-sign-in"></i>
-                </button>
-              </span>
-            </div>
-          </div>
-        </form>
-      </div>
+						<span class="focus-input100" ></span>
+					</div>
 
+					<div class="container-login100-form-btn m-t-32">
+						<button type="login" class="login100-form-btn" @click="signin()">
+							Sign In
+						</button>
+					</div>
 
+				</form>
+			</div>
+		</div>
+	</div>
 
-    </div>
-  </div>
-  <br>
-  <br>
-  <br>
-  <br>
 </body>
 </template>
 
@@ -96,6 +101,15 @@ export default {
   }
 },
 methods: {
+   closeAll() {
+      for (
+        var i = 0;
+        i < document.getElementsByClassName("modal").length;
+        i++
+      ) {
+        document.getElementsByClassName("modal")[i].style.display = "none";
+      }
+    },
       // Fetches posts when the component is created.
       startchecker(){
 
@@ -124,166 +138,21 @@ methods: {
 </script>
 
 <style scoped>
-input {
-	width: 100%;
-	margin-bottom: 10px;
-	background: rgba(0,0,0,0.3);
-	border: none;
-	outline: none;
-	padding: 10px;
-	font-size: 13px;
-	color: #fff;
-	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
-	border: 1px solid rgba(0,0,0,0.3);
-	border-radius: 4px;
-	box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
-	-webkit-transition: box-shadow .5s ease;
-	-moz-transition: box-shadow .5s ease;
-	-o-transition: box-shadow .5s ease;
-	-ms-transition: box-shadow .5s ease;
-	transition: box-shadow .5s ease;
-}
-@media (max-width: 640px) {
-  body {
-    font-size: 1.3rem;
-  }
-  h1 {
-    font-size: 16px;
-  }
-  h5 {
-    font-size: 12;
-  }
-}
-@media (max-width: 767px) {
-  .desc {
-    margin-top: 50px;
-  }
-  h5 {
-    font-size: 8px;
-  }
-  .desc {
-    width: 250px;
-    min-height: 0px !important;
-    margin-top: 50px;
-  }
-  .form-login {
-    width: 250px;
-  }
-  .container {
-    margin-right: 10px;
-    padding: 50px !important;
-  }
-}
-@media (min-width: 641px) {
-  body {
-    font-size: 1.2rem;
-  }
-  h5 {
-    font-size: 14px;
-  }
-}
-@media (min-width: 960px) {
-  body {
-    font-size: 1.4rem;
-  }
-   h5 {
-    font-size: 20px;
-  }
-}
-@media (min-width: 1100px) {
-  body {
-    font-size: 1.6rem;
-  }
-  h5 {
-    font-size: 20px;
-  }
-  .desc {
-    margin-left: 40px;
-  }
-}
-h5.test {
-  word-wrap: break-word;
-}
-body {
-  height: 100%;
-}
-.uploading-image {
-  display: flex;
-}
-.resized {
-  width: auto;
-  height: 150px;
-}
-.bg {
-  background: lightgrey;
-  max-height: 100vh !important;
-  overflow: hidden !important;
-}
-.bar {
-    height: 10vh;
-    background: limegreen;
-}
-.container {
-  padding: 110px;
-}
-::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #ffffff69 !important;
-  opacity: 1; /* Firefox */
-  font-size: 18px !important;
-  font-weight: 200 !important;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-.form-login {
-  background-color: rgba(0, 0, 0, 0.55);
-  padding-top: 10px;
-  padding-bottom: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 15px;
-  border-color: #d2d2d2;
-  border-width: 5px;
-  color: white;
-  box-shadow: 0 1px 0 #cfcfcf;
-}
-.form-control {
-  background: transparent !important;
-  color: white !important;
-  font-size: 18px !important;
-}
-h1 {
-  color: white !important;
-}
-h5 {
-  border: 0 solid #fff;
-  border-bottom-width: 1px;
-  padding-bottom: 10px;
-  text-align: center;
-}
-.form-control {
-  border-radius: 10px;
-}
-.text-white {
-  color: white !important;
-}
-.wrapper {
-  text-align: center;
-}
-.a {
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 30px;
+  top: 5px;
+  font-size: 40px;
   font-weight: bold;
-  color: #2c3e50;
+  color: black;
 }
-.desc {
-  background-color: rgba(0, 0, 0, 0.55);
-  padding-top: 10px;
-  padding-bottom: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 15px;
-  border-color: #d2d2d2;
-  border-width: 5px;
-  color: white;
-  box-shadow: 0 1px 0 #cfcfcf;
-  min-height: 450px;
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
 }
+
+
 </style>
