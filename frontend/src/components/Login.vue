@@ -1,29 +1,13 @@
 <template>
 <div class="servicemy">
 <div id="nav" class="flex bg-dark">
-    <b-dropdown
-      id="ddown-offset"
-      offset="25"
-      text="+"
-      variant="btn-block text-white bg-success btn-lg"
-      class="m-2 w-15"
-      no-caret
-    >
-      <b-dropdown-item
-        onclick="document.getElementById('addLand_id').style.display='block'"
-        style="width:auto;"
-        @click="closeAll()"
-      >Aggiungi Terreno</b-dropdown-item>
-    </b-dropdown>
-
     <b-button
       offset="25"
-      text="Logout"
+      text="Sign In"
       variant=" btn-block"
-      class="m-2 w-15 logout btn-block btn-lg"
-      @click="logout()"
-    >
-      <i class="fas fa-sign-out-alt text-white"></i>
+      class="m-2 w-15 btn-block btn-lg btn-outline-light text-white"
+      onclick="document.getElementById('sign').style.display='block'"
+    > Sign In
     </b-button>
   </div>
 
@@ -39,7 +23,7 @@
 				<span class="login100-form-title p-b-41">
 					FarmTrack Login
 				</span>
-				<form class="login100-form validate-form p-b-33 p-t-5">
+				<form class="login100-form validate-form p-b-33 p-t-5" action method="">
 
 					<div class="wrap-input100 validate-input" >
 					<input
@@ -67,7 +51,7 @@
 					</div>
 
 					<div class="container-login100-form-btn m-t-32">
-						<button class="login100-form-btn">
+						<button type="login" class="login100-form-btn" @mouseenter="validator()" @click="startchecker()">
 							Login
 						</button>
 					</div>
@@ -182,6 +166,7 @@ methods: {
         
       },
       validator () {
+        console.log("Validating")
         this.params = new URLSearchParams()
         this.params.append('email', this.login.email)
         this.params.append('password', this.login.password)
@@ -238,161 +223,11 @@ input {
 	-ms-transition: box-shadow .5s ease;
 	transition: box-shadow .5s ease;
 }
-@media (max-width: 640px) {
-  body {
-    font-size: 1.3rem;
-  }
-  h1 {
-    font-size: 16px;
-  }
-  h5 {
-    font-size: 12;
-  }
-}
-@media (max-width: 767px) {
-  .desc {
-    margin-top: 50px;
-  }
-  h5 {
-    font-size: 8px;
-  }
-  .desc {
-    width: 250px;
-    min-height: 0px !important;
-    margin-top: 50px;
-  }
-  .form-login {
-    width: 250px;
-  }
-  .container {
-    margin-right: 10px;
-    padding: 50px !important;
-  }
-}
-
-@media (min-width: 641px) {
-  body {
-    font-size: 1.2rem;
-  }
 
 
-  h5 {
-    font-size: 14px;
-  }
-}
 
-@media (min-width: 960px) {
-  body {
-    font-size: 1.4rem;
-  }
-   h5 {
-    font-size: 20px;
-  }
-}
 
-@media (min-width: 1100px) {
-  body {
-    font-size: 1.6rem;
-  }
-  h5 {
-    font-size: 20px;
-  }
-  .desc {
-    margin-left: 40px;
-  }
-}
 
-h5.test {
-  word-wrap: break-word;
-}
-body {
-  height: 100%;
-}
-.uploading-image {
-  display: flex;
-}
-.resized {
-  width: auto;
-  height: 150px;
-}
-.bg {
-  background: lightgrey;
-  max-height: 100vh !important;
-  overflow: hidden !important;
-}
-
-.bar {
-    height: 10vh;
-    background: limegreen;
-    font-weight: 800;
-}
-
-.container {
-  padding: 110px;
-}
-::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #ffffff69 !important;
-  opacity: 1; /* Firefox */
-  font-size: 18px !important;
-  font-weight: 200 !important;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-.form-login {
-  background-color: rgba(0, 0, 0, 0.55);
-  padding-top: 10px;
-  padding-bottom: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 15px;
-  border-color: #d2d2d2;
-  border-width: 5px;
-  color: white;
-  box-shadow: 0 1px 0 #cfcfcf;
-}
-.form-control {
-  background: transparent !important;
-  color: white !important;
-  font-size: 18px !important;
-}
-h1 {
-  color: white !important;
-}
-h5 {
-  border: 0 solid #fff;
-  border-bottom-width: 1px;
-  padding-bottom: 10px;
-  text-align: center;
-}
-
-.form-control {
-  border-radius: 10px;
-}
-.text-white {
-  color: white !important;
-}
-
-.wrapper {
-  text-align: center;
-}
-
-.a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-.desc {
-  background-color: rgba(0, 0, 0, 0.55);
-  padding-top: 10px;
-  padding-bottom: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 15px;
-  border-color: #d2d2d2;
-  border-width: 5px;
-  color: white;
-  box-shadow: 0 1px 0 #cfcfcf;
-  min-height: 450px;
-}
 
 /* The Modal (background) */
 .modal {
@@ -575,7 +410,7 @@ iframe {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: rgba(0,0,0,0.65);
+  background-color:whitesmoke;
 }
 
 .wrap-login100 {
@@ -593,12 +428,12 @@ iframe {
 .login100-form {
   width: 100%;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: rgba(51, 51, 51, 0.787);
 }
 
 .login100-form-logo {
   font-size: 60px; 
-  color: #333333;
+  color: #c5bebe;
 
   display: -webkit-box;
   display: -webkit-flex;
@@ -617,7 +452,7 @@ iframe {
 .login100-form-title {
   font-family: Ubuntu-Bold;
   font-size: 28px;
-  color: #fff;
+  color: rgb(53, 53, 53);
   line-height: 1.2;
   text-align: center;
   text-transform: uppercase;
@@ -639,13 +474,13 @@ iframe {
 .input100 {
   font-family: Ubuntu-Regular;
   font-size: 20px;
-  color: #555555;
+  color: #4d4d4d;
   line-height: 1.2;
 
   display: block;
   width: 100%;
   height: 50px;
-  background: transparent;
+  background: white;
   padding: 0 10px 0 80px;
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -759,11 +594,13 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 0 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   min-width: 160px;
   height: 42px;
   border-radius: 21px;
 
-  background: #d41872;
+  background: #078136e8;
   background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
   background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
   background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
