@@ -36,6 +36,9 @@
     <div id="addElement_id" class="modal">
           <AddElement :landid="selectedLand.id" />
     </div>
+     <div id="trees_id" class="modal">
+          <Trees />
+    </div>
 
     <!-- Land Selection -->
     <div class="input-group mb-3" v-if="lands.length === 1">
@@ -62,7 +65,10 @@
         <template v-slot:header>
           <b-nav card-header tabs>
             <b-nav-item active>Dettagli</b-nav-item>
-            <b-nav-item :disabled="!hasTrees">Elementi</b-nav-item>
+            <b-nav-item :disabled="!hasTrees" 
+              onclick="document.getElementById('addElement_id').style.display='block'">
+              Elementi
+            </b-nav-item>
           </b-nav>
         </template>
 
@@ -93,6 +99,7 @@ import EventBus from '../eventBus'
 import AddLand from "./AddLand";
 import AddElement from "./AddElement";
 import AddTree from "./AddTree";
+import Trees from "./Trees";
 
 export default {
   name: "service",
@@ -102,6 +109,7 @@ export default {
       errors: [],
       modal: "addLand_id",
       modal: "addElement_id",
+      modal: "trees_id",
       accesso: null,
       lands: [],
       firstLand: null,
@@ -124,7 +132,7 @@ export default {
           sortable: false
         }
       ],
-      all: ["addLand_id", "addElement_id"]
+      all: ["addLand_id", "addElement_id", "trees_id"]
     };
   },
   created() {
@@ -190,9 +198,13 @@ export default {
   },
   components: {
     AddLand,
-    AddElement
+    AddElement,
+    Trees
   },
   methods: {
+    openTreeModal() {
+
+    },
     closeAll() {
       for (
         var i = 0;
@@ -205,18 +217,6 @@ export default {
     logout() {
       this.accesso = null;
       window.location.href = "/#/";
-    },
-    // Fetches posts when the component is created.
-    callRestService() {
-      AXIOS.get(`/hello`)
-        .then(response => {
-          // JSON responses are automatically parsed.
-          this.response = response.data;
-          console.log(response.data);
-        })
-        .catch(e => {
-          this.errors.push(e);
-        });
     },
     onclick: function(event) {
       if (event.target == modal) {
