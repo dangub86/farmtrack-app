@@ -39,7 +39,7 @@
               type="password"
               v-model="login.password"
               @keydown.enter.prevent="addCategory"
-              @mouseleave="validator()"
+              @input="validator()"
               class="input100"
               placeholder="password"
               required
