@@ -37,7 +37,7 @@
           <AddElement :landid="selectedLand.id" />
     </div>
      <div id="trees_id" class="modal">
-          <Trees />
+          <Trees :landid="selectedLand.id" :treesOnInit="trees"/>
     </div>
 
     <!-- Land Selection -->
@@ -66,7 +66,7 @@
           <b-nav card-header tabs>
             <b-nav-item active>Dettagli</b-nav-item>
             <b-nav-item :disabled="!hasTrees" 
-              onclick="document.getElementById('addElement_id').style.display='block'">
+              onclick="document.getElementById('trees_id').style.display='block'">
               Elementi
             </b-nav-item>
           </b-nav>
@@ -112,6 +112,7 @@ export default {
       modal: "trees_id",
       accesso: null,
       lands: [],
+      trees: [],
       firstLand: null,
       treeAdded: null,
       updated: false,
@@ -155,6 +156,21 @@ export default {
         this.errors.push(e);
       });
   },
+  mounted() {
+     console.log("Service has been mounted");
+       let params = new URLSearchParams;
+       params.append("landid", this.selectedLand.id);
+
+    AXIOS.post(`/treesByLand`, params)
+      .then(response => {
+        this.trees = response.data;
+        console.log(this.trees);
+     
+      })
+      .catch(e => {
+        this.errors.push(e);
+      });
+  },
   beforeUpdate() {
      console.log("Service beforeUpdate");
 
@@ -182,7 +198,7 @@ export default {
 
   },
   updated() {
-    console.log("Service has been mounted");
+    console.log("Service has been updated");
 
             let params = new URLSearchParams();
             params.append("land", this.selectedLand.id);

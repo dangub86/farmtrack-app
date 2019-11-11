@@ -4,6 +4,7 @@ import Login from '@/components/Login'
 import Service from '@/components/Service'
 import Land from '@/components/AddLand'
 import Tree from '@/components/AddTree'
+import Trees from '@/components/Trees'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/tree',
       name: 'Tree',
       component: Tree
+    },
+    {
+      path: '/trees',
+      name: 'Trees',
+      component: Trees
     }
 
   ]

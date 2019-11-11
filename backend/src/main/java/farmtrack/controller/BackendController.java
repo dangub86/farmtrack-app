@@ -139,4 +139,11 @@ public class BackendController {
     List<Tree> getTrees() {
         return treeService.getTrees();
     }
+
+    @RequestMapping(path="/treesByLand", method = RequestMethod.POST)
+    public @ResponseBody
+    List<Tree> getTreesByLand(@RequestParam("landid") String land) {
+        System.out.println("Start calling...");
+        return farmlandService.getTreesByLand(land);
+    }
 }
