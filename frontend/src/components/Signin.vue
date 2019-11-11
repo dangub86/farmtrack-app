@@ -6,9 +6,6 @@
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
      <span @click="closeAll()" class="close" title="Close Modal">&times;</span>
 			<div class="wrap-login100 p-t-30 p-b-50">
-				<span class="login100-form-title p-b-41">
-					SIGN IN
-				</span>
 				<form class="login100-form validate-form p-b-33 p-t-5" action method="">
 
 					<div class="wrap-input100" >
@@ -142,7 +139,7 @@ methods: {
 .close {
   position: absolute;
   right: 30px;
-  top: 5px;
+  top: -10px;
   font-size: 40px;
   font-weight: bold;
   color: black;
@@ -153,6 +150,5 @@ methods: {
   color: #f44336;
   cursor: pointer;
 }
-
 
 </style>

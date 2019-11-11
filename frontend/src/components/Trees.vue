@@ -27,8 +27,7 @@
             class="btn-success btn-block"
             value="Add Tree"
           >Aggiorna</b-button>
-          <p>{{this.landid}}</p>
-           <p>{{trees[0]}}</p>
+           <p v-for="tree in trees" :key="tree.id">{{tree.name}}</p>
         </div>
       </div>
     </div>
@@ -40,15 +39,16 @@
 
 <script>
 import { AXIOS } from "./http-common";
+import EventBus from '../eventBus'
 
 export default {
   name: "Trees",
-  props: ["landid", "treesOnInit"],
+  props: ["landid"],
   data() {
     return {
       response: [],
       errors: [],
-      trees: this.treesOnInit,
+      trees: [],
       selectedTree: null,
       showResponse: false,
       retrievedUser: {},
@@ -57,7 +57,9 @@ export default {
   },
   created() {
       console.log("Trees has been created");
-      
+      EventBus.$on('TREES', (trees) => {
+           this.trees = trees;
+         });
       
     },
   methods: {

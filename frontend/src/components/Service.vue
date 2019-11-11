@@ -37,7 +37,7 @@
           <AddElement :landid="selectedLand.id" />
     </div>
      <div id="trees_id" class="modal">
-          <Trees :landid="selectedLand.id" :treesOnInit="trees"/>
+          <Trees :landid="selectedLand.id"/>
     </div>
 
     <!-- Land Selection -->
@@ -66,7 +66,7 @@
           <b-nav card-header tabs>
             <b-nav-item active>Dettagli</b-nav-item>
             <b-nav-item :disabled="!hasTrees" 
-              onclick="document.getElementById('trees_id').style.display='block'">
+              @click="openTreeModal()">
               Elementi
             </b-nav-item>
           </b-nav>
@@ -112,7 +112,6 @@ export default {
       modal: "trees_id",
       accesso: null,
       lands: [],
-      trees: [],
       firstLand: null,
       treeAdded: null,
       updated: false,
@@ -156,21 +155,6 @@ export default {
         this.errors.push(e);
       });
   },
-  mounted() {
-     console.log("Service has been mounted");
-       let params = new URLSearchParams;
-       params.append("landid", this.selectedLand.id);
-
-    AXIOS.post(`/treesByLand`, params)
-      .then(response => {
-        this.trees = response.data;
-        console.log(this.trees);
-     
-      })
-      .catch(e => {
-        this.errors.push(e);
-      });
-  },
   beforeUpdate() {
      console.log("Service beforeUpdate");
 
@@ -201,12 +185,16 @@ export default {
     console.log("Service has been updated");
 
             let params = new URLSearchParams();
-            params.append("land", this.selectedLand.id);
+            params.append("landid", this.selectedLand.id);
 
-                  AXIOS.post(`/landHasTree`, params)
+                  AXIOS.post(`/treesByLand`, params)
                           .then(response => {
-                            console.log("Response Data:" + response.data);
-                            this.hasTrees = response.data;
+                            let trees = response.data;
+                            if (trees.length > 0) {
+                              this.hasTrees = true;
+                            }
+                            EventBus.$emit('TREES', trees);
+                            console.log(trees);
                       }).catch(e => {
                             this.errors.push(e);
                       });
@@ -219,7 +207,10 @@ export default {
   },
   methods: {
     openTreeModal() {
-
+      if (this.hasTrees) {
+        document.getElementById('trees_id').style.display='block';
+      }
+        
     },
     closeAll() {
       for (

@@ -1,11 +1,10 @@
 <template>
 <div class="servicemy">
-<div id="nav" class="flex bg-dark">
+<div id="nav" class="container-login100-form-btn m-t-32">
     <b-button
       offset="25"
       text="Sign In"
-      variant=" btn-block"
-      class="m-2 w-15 btn-block btn-lg btn-outline-light text-white"
+      class="login100-form-btn signin-btn"
       onclick="document.getElementById('sign').style.display='block'"
     > Sign In
     </b-button>
@@ -298,7 +297,7 @@ iframe {
 
 .limiter {
   width: 100%;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 .container-login100 {
@@ -525,7 +524,7 @@ iframe {
   margin-bottom: 10px;
   min-width: 160px;
   height: 42px;
-  border-radius: 11px;
+  border-radius: 5px;
 
   background: #0bbe50e8;
   background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
@@ -560,6 +559,10 @@ iframe {
   transition: all 0.4s;
 }
 
+.signin-btn {
+  color: #0bbe50e8 !important;
+  background-color: #ececec !important;
+}
 
 
 /*------------------------------------------------------------------
