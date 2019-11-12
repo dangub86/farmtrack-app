@@ -91,8 +91,8 @@ export default {
       },
       options: [
         {value: null, text: "Scegli..."},
-        {value: 1, text: "Ulivo"},
-        {value: 2, text: "Pesco"}
+        {value: "Ulivo", text: "Ulivo"},
+        {value: "Pesco", text: "Pesco"}
       ],
       showResponse: false,
       retrievedUser: {},

@@ -3,43 +3,40 @@
     <span @click="closeAll()" class="close" title="Close Modal">&times;</span>
 
     <div class="container">
-    <br>
-    <br>
-<!--
-    <div class="input-group mb-3" v-if="trees.length > 1">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="inputGroupSelect01">Terreno</label>
-      </div>
-      <select class="custom-select" id="inputGroupSelect01" v-model="selectedTree">
-        <option v-for="tree in trees" :key="tree.id" :selected="trees[0].name">{{ tree.name }}</option>
-      </select>
-    </div>
--->
+      <br />
+      <br />
+ 
+      <b-button offset="25" text="Aggiorna" class="update-btn" @click="loadTrees">
+        <i class="fas fa-sync-alt"></i>
+      </b-button>
       <hr />
       <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6">
-          <b-button disabled onclick="document.getElementById('addTree_id').style.display='block'"
-            class="btn-success btn-block">Aggiungi Ortaggio</b-button>
-        </div>
-        <div class="col-xs-6 col-sm-6 col-md-6">
-          <b-button
-            @click="loadTrees"
-            class="btn-success btn-block"
-            value="Add Tree"
-          >Aggiorna</b-button>
-           <p v-for="tree in trees" :key="tree.id">{{tree.name}}</p>
+        <div>
+          <b-card
+            v-for="tree in trees"
+            :key="tree.id"
+            :title="tree.name"
+            img-alt="Tree"
+            tag="article"
+            class="ml-3 tree-card"
+          >
+          <img src="../assets/tree.webp" class="tree-img" style="max-width: 5rem;" />
+         <p>{{tree.genre}} <span>({{tree.variety}})</span></p>
+          <br>
+            <b-card-text>{{tree.name}}</b-card-text>
+
+            <b-button href="#" variant="primary">Edit</b-button>
+          </b-card>
         </div>
       </div>
     </div>
-
-
   </form>
 </template>
 
 
 <script>
 import { AXIOS } from "./http-common";
-import EventBus from '../eventBus'
+import EventBus from "../eventBus";
 
 export default {
   name: "Trees",
@@ -56,26 +53,24 @@ export default {
     };
   },
   created() {
-      console.log("Trees has been created");
-      EventBus.$on('TREES', (trees) => {
-           this.trees = trees;
-         });
-      
-    },
+    console.log("Trees has been created");
+    EventBus.$on("TREES", trees => {
+      this.trees = trees;
+    });
+  },
   methods: {
     loadTrees() {
-        let params = new URLSearchParams;
-       params.append("landid", this.landid);
+      let params = new URLSearchParams();
+      params.append("landid", this.landid);
 
-    AXIOS.post(`/treesByLand`, params)
-      .then(response => {
-        this.trees = response.data;
-        console.log(this.trees);
-     
-      })
-      .catch(e => {
-        this.errors.push(e);
-      });
+      AXIOS.post(`/treesByLand`, params)
+        .then(response => {
+          this.trees = response.data;
+          console.log(this.trees);
+        })
+        .catch(e => {
+          this.errors.push(e);
+        });
     },
     closeAll() {
       for (
@@ -102,20 +97,6 @@ html {
 }
 
 /* Set a style for all buttons */
-button {
-  background-color: #4caf50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-}
-
-button:hover {
-  opacity: 1;
-}
 
 /* Float cancel and signup buttons and add an equal width */
 .signupbtn {
@@ -181,4 +162,23 @@ hr {
   width: 90%;
 }
 
+.update-btn {
+  position: absolute;
+  top: 5vh;
+  left: 5vw;
+  background-color: rgb(110, 110, 110) !important;
+  border-radius: 25px;
+  opacity: 0.6;
+}
+
+.tree-card {
+
+  width: 80vw;
+}
+
+.tree-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 </style>
