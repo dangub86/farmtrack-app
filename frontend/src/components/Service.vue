@@ -34,9 +34,9 @@
       <AddLand />
     </div>
     <div id="addElement_id" class="modal">
-          <AddElement :landid="selectedLand.id" />
+          <AddElement v-if="treeAdded === null" :landid="selectedLand.id" />
     </div>
-     <div id="trees_id" class="modal">
+     <div id="trees_id" class="modal modal-max">
           <Trees :landid="selectedLand.id"/>
     </div>
 
@@ -270,6 +270,16 @@ export default {
   border: 1px solid #888;
   width: 90%;
 }
+.modal-max {
+  top: 0;
+  background-color: #fefefe;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid #888;
+  width: 100%;
+  height: 100%;
+}
+
 .logout {
   width: auto;
 }
