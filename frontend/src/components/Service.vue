@@ -31,7 +31,7 @@
   <body>
     <!-- Modals -->
     <div id="addLand_id" class="modal">
-      <AddLand />
+      <AddLand :farmer="farmerId" />
     </div>
     <div id="addElement_id" class="modal">
           <AddElement v-if="treeAdded === null" :landid="selectedLand.id" />
@@ -87,6 +87,7 @@
             variant="primary bg-success">
             Aggiungi elemento
         </b-button>
+        {{farmerId}}
       </b-card>
     </div>
   </body>
@@ -95,7 +96,7 @@
 
 <script>
 import { AXIOS } from "./http-common";
-import EventBus from '../eventBus'
+import EventBus from '../eventBus';
 import AddLand from "./AddLand";
 import AddElement from "./AddElement";
 import AddTree from "./AddTree";
@@ -111,6 +112,7 @@ export default {
       modal: "addElement_id",
       modal: "trees_id",
       accesso: null,
+      farmerId: null,
       lands: [],
       firstLand: null,
       treeAdded: null,
@@ -135,9 +137,20 @@ export default {
       all: ["addLand_id", "addElement_id", "trees_id"]
     };
   },
+  beforeCreate() {
+    console.log("Service before create");
+    EventBus.$on('FARMER', (payload) => {
+           this.farmerId = payload.id;
+         });
+    console.log("id: " + this.farmerId);
+  },
   created() {
   console.log("Service has been created");
-    AXIOS.get(`/lands`)
+
+    let params = new URLSearchParams();
+    params.append("farmer", this.farmerId);
+
+    AXIOS.post(`/lands`, params)
       .then(response => {
         this.lands = response.data;
         console.log(this.lands);
@@ -183,6 +196,13 @@ export default {
   },
   updated() {
     console.log("Service has been updated");
+
+this.$eventHub.$on('FARMER', payload => {
+          console.log('in here!');
+           this.farmerId = payload.id;
+         });
+    console.log("id: " + this.farmerId);
+
 
             let params = new URLSearchParams();
             params.append("landid", this.selectedLand.id);

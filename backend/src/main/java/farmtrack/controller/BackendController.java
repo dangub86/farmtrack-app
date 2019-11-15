@@ -72,7 +72,8 @@ public class BackendController {
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody boolean addLand(@RequestParam("name") String name, @RequestParam("unity") String unity,
                                          @RequestParam("height") int height, @RequestParam("width") int width,
-                                         @RequestParam("gradient") int gradient, @RequestParam("composition") String composition ) {
+                                         @RequestParam("gradient") int gradient, @RequestParam("composition") String composition,
+                                         @RequestParam("farmer") String farmer) {
 
         System.out.println("Adding land with name " + name);
         FarmLand farmLand = new FarmLand();
@@ -82,6 +83,7 @@ public class BackendController {
         farmLand.setWidth(width);
         farmLand.setGradient(gradient);
         farmLand.setComposition(composition);
+        farmLand.setFarmer(farmer);
         farmlandService.save(farmLand);
 
         return true;
@@ -122,10 +124,10 @@ public class BackendController {
         return "";
     }
 
-    @RequestMapping(path="/lands", method = RequestMethod.GET)
+    @RequestMapping(path="/lands", method = RequestMethod.POST)
     public @ResponseBody
-    List<FarmLand> getLands() {
-        return farmlandService.getLands();
+    List<FarmLand> getLands(@RequestParam("farmer") String farmerId) {
+        return farmlandService.getLands(farmerId);
     }
 
     @RequestMapping(path="/landHasTree", method = RequestMethod.POST)

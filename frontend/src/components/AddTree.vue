@@ -55,9 +55,6 @@
       <hr />
       <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
-          <button @click="closeAll()" class="cancelbtn btn-block">Annulla</button>
-        </div>
-        <div class="col-xs-6 col-sm-6 col-md-6">
           <button
             @click.prevent="addTree()"
             class="btn-success btn-block"

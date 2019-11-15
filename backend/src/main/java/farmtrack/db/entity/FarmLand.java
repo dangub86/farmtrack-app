@@ -15,6 +15,7 @@ public class FarmLand {
     int width;
     int gradient;
     String composition;
+    String farmer;
     List<String> treeList = new ArrayList<>();
 
     public String getId() {
@@ -69,6 +70,14 @@ public class FarmLand {
         return composition;
     }
 
+    public String getFarmer() {
+        return farmer;
+    }
+
+    public void setFarmer(String farmer) {
+        this.farmer = farmer;
+    }
+
     public void setComposition(String composition) {
         this.composition = composition;
     }
@@ -97,7 +106,11 @@ public class FarmLand {
                 ", width=" + width +
                 ", gradient=" + gradient +
                 ", composition='" + composition + '\'' +
+                ", farmer='" + farmer + '\'' +
                 ", treeList=" + treeList +
                 '}';
     }
+
+
+
 }

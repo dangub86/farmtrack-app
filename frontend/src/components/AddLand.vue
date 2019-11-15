@@ -80,15 +80,13 @@
 
       <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
-          <button @click="closeAll()" class="cancelbtn btn-block">Annulla</button>
-        </div>
-        <div class="col-xs-6 col-sm-6 col-md-6">
           <button
             type="submit"
-            @click="createUser()"
+            @click.prevent="addLand()"
             class="btn-success btn-block"
             value="Sign In"
           >Conferma</button>
+          {{this.farmer}}
         </div>
       </div>
     </div>
@@ -100,6 +98,7 @@
 import { AXIOS } from "./http-common";
 export default {
   name: "land",
+  props: ["farmer"],
   data() {
     return {
       response: [],
@@ -129,7 +128,7 @@ export default {
       }
     },
     // Fetches posts when the component is created.
-    createUser() {
+    addLand() {
       var params = new URLSearchParams();
       params.append("name", this.land.name);
       params.append("unity", this.land.unity);
@@ -137,6 +136,7 @@ export default {
       params.append("width", this.land.width);
       params.append("gradient", this.land.gradient);
       params.append("composition", this.land.composition);
+      params.append("farmer", this.farmer);
 
       AXIOS.post(`/addLand`, params)
         .then(response => {
@@ -145,6 +145,7 @@ export default {
           this.land.id = response.data;
           console.log(response.data);
           this.showResponse = true;
+          this.closeAll();
         })
         .catch(e => {
           this.errors.push(e);

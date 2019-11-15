@@ -72,6 +72,7 @@
 
 <script>
 import { AXIOS } from "./http-common";
+import EventBus from '../eventBus';
 import Signin from "./Signin";
 
 export default {
@@ -102,8 +103,14 @@ export default {
 methods: {
       // Fetches posts when the component is created.
       startchecker(){
+        const payload = {
+                    id: "this.id"
+            };
+          this.$eventHub.$emit('FARMER', payload);
+
         if(this.checking===true){
-          window.location.href= "/#/callservice?id="+this.id;
+           
+          window.location.href= "/#/callservice?id=" +this.id;
         }
         else{
           window.location.href="/#/";
