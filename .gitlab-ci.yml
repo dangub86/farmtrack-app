@@ -21,6 +21,12 @@ variables:
 # This template uses jdk8 for verifying and deploying images
 image: maven:3.3.9-jdk-8
 
+# To run before scripts
+before_script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+
 # Cache downloaded dependencies and plugins between builds.
 # To keep cache across branches add 'key: "$CI_JOB_NAME"'
 cache:
@@ -31,7 +37,7 @@ cache:
 stages:
   - verify
   - build
-  - deploy
+  - production
 
 # For merge requests do not `deploy` but only run `verify`.
 # See https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
@@ -47,7 +53,7 @@ verify:jdk8:
   <<: *verify
 
 # Build stage.
-maven-build:
+build:
   image: maven:3.3.9-jdk-8
   stage: build
   script: "mvn clean install"
@@ -59,12 +65,11 @@ maven-build:
 # For deploying packages to GitLab's Maven Repository: See https://docs.gitlab.com/ee/user/project/packages/maven_repository.html#creating-maven-packages-with-gitlab-cicd for more details.
 # Please note: The GitLab Maven Repository is currently only available in GitLab Premium / Ultimate.
 # For `master` branch run `mvn deploy` automatically.
-deploy:jdk8:
-  stage: deploy
+production:
+  type: deploy
+  stage: production
+  image: ruby:latest
   script:
-    - apt-get update -yq
-    - apt-get install rubygems ruby-dev -y
-    - gem install dpl
-    - dpl --provider=heroku --app=farmtrack-app --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=$HEROKU_APP_PROD --api-key=$HEROKU_API_KEY
   only:
     - master
