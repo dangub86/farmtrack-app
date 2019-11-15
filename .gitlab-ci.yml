@@ -32,6 +32,7 @@ cache:
 stages:
   - verify
   - build
+  - staging
   - production
 
 # For merge requests do not `deploy` but only run `verify`.
@@ -56,6 +57,18 @@ build:
     paths:
       - target/*.jar
       
+staging:
+  type: deploy
+  stage: staging
+  image: ruby:latest
+  script:
+     - apt-get update -qy
+     - apt-get install -y ruby-dev
+     - gem install dpl
+     - dpl --provider=heroku --app=$FARMTRACK_STAGING --api-key=$HEROKU_API_KEY
+  only:
+     - staging
+        
 # To deploy packages from CI, create a ci_settings.xml file
 # For deploying packages to GitLab's Maven Repository: See https://docs.gitlab.com/ee/user/project/packages/maven_repository.html#creating-maven-packages-with-gitlab-cicd for more details.
 # Please note: The GitLab Maven Repository is currently only available in GitLab Premium / Ultimate.
@@ -68,6 +81,6 @@ production:
     - apt-get update -qy
     - apt-get install -y ruby-dev
     - gem install dpl
-    - dpl --provider=heroku --app=$HEROKU_APP_PROD --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=$FARMTRACK_PROD --api-key=$HEROKU_API_KEY
   only:
     - master
