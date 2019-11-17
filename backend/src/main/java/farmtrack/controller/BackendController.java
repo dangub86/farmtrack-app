@@ -53,7 +53,7 @@ public class BackendController {
     @RequestMapping(path = "/sign", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody boolean signiIn (@RequestParam("name") String name, @RequestParam("surname")  String surname,
-        @RequestParam("email") String email, @RequestParam("pwd") String pwd ) {
+                                          @RequestParam("email") String email, @RequestParam("pwd") String pwd ) {
         System.out.println("signincontroller name: "+ name);
         System.out.println("signincontroller surname: "+ surname);
         System.out.println("signincontroller email: "+ email);
@@ -72,7 +72,8 @@ public class BackendController {
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody boolean addLand(@RequestParam("name") String name, @RequestParam("unity") String unity,
                                          @RequestParam("height") int height, @RequestParam("width") int width,
-                                         @RequestParam("gradient") int gradient, @RequestParam("composition") String composition ) {
+                                         @RequestParam("gradient") int gradient, @RequestParam("composition") String composition,
+                                         @RequestParam("farmer") String farmer) {
 
         System.out.println("Adding land with name " + name);
         FarmLand farmLand = new FarmLand();
@@ -82,6 +83,7 @@ public class BackendController {
         farmLand.setWidth(width);
         farmLand.setGradient(gradient);
         farmLand.setComposition(composition);
+        farmLand.setFarmer(farmer);
         farmlandService.save(farmLand);
 
         return true;
@@ -90,8 +92,8 @@ public class BackendController {
     @RequestMapping(path = "/addTree", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody String addTree(@RequestParam("name") String name, @RequestParam("genre") String genre,
-                                         @RequestParam("variety") String variety, @RequestParam("age") int age,
-                                         @RequestParam("land") String land ) {
+                                        @RequestParam("variety") String variety, @RequestParam("age") int age,
+                                        @RequestParam("land") String land ) {
 
         FarmLand farmLand = farmlandService.getLandById(land);
         System.out.println("Farmland: " + farmLand);
@@ -112,7 +114,7 @@ public class BackendController {
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody String addTreeToLand(@RequestParam("land") String land, @RequestParam("tree") String treeId) {
 
-       // FarmLand farmLand = farmlandService.getLandById(land);
+        // FarmLand farmLand = farmlandService.getLandById(land);
         FarmLand farmLand = farmlandService.getLandById(land);
         System.out.println("Farmland: " + farmLand);
         System.out.println("Adding tree with id " + treeId);
@@ -122,10 +124,10 @@ public class BackendController {
         return "";
     }
 
-    @RequestMapping(path="/lands", method = RequestMethod.GET)
+    @RequestMapping(path="/lands", method = RequestMethod.POST)
     public @ResponseBody
-    List<FarmLand> getLands() {
-        return farmlandService.getLands();
+    List<FarmLand> getLands(@RequestParam("farmer") String farmerId) {
+        return farmlandService.getLands(farmerId);
     }
 
     @RequestMapping(path="/landHasTree", method = RequestMethod.POST)

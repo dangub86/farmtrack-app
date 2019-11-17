@@ -7,6 +7,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
 
+Vue.prototype.$eventHub = new Vue(); // Global event bus
+
 Vue.config.productionTip = false
 
 // Bootstrap

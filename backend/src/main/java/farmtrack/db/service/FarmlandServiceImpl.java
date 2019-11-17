@@ -36,8 +36,8 @@ public class FarmlandServiceImpl implements FarmlandService {
     }
 
     @Override
-    public List<FarmLand> getLands() {
-        return farmlandRepository.findAll();
+    public List<FarmLand> getLands(String farmerId) {
+        return farmlandRepository.getFarmLandByFarmer(farmerId);
     }
 
     @Override
