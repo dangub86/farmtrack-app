@@ -86,7 +86,6 @@
             class="btn-success btn-block"
             value="Sign In"
           >Conferma</button>
-          {{this.farmer}}
         </div>
       </div>
     </div>
@@ -136,7 +135,7 @@ export default {
       params.append("width", this.land.width);
       params.append("gradient", this.land.gradient);
       params.append("composition", this.land.composition);
-      params.append("farmer", this.farmer);
+      params.append("farmer", this.$store.state.farmer);
 
       AXIOS.post(`/addLand`, params)
         .then(response => {

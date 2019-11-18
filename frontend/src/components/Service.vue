@@ -83,7 +83,7 @@
         </b-card-text>
         <p class="d-none">{{updated}}</p>
         <b-button
-            onclick="document.getElementById('addElement_id').style.display='block'"
+            @click="openAddModal()"
             variant="primary bg-success">
             Aggiungi elemento
         </b-button>
@@ -137,18 +137,11 @@ export default {
       all: ["addLand_id", "addElement_id", "trees_id"]
     };
   },
-  beforeCreate() {
-    console.log("Service before create");
-    EventBus.$on('FARMER', (payload) => {
-           this.farmerId = payload.id;
-         });
-    console.log("id: " + this.farmerId);
-  },
   created() {
   console.log("Service has been created");
 
-    let params = new URLSearchParams();
-    params.append("farmer", this.farmerId);
+    let params = this.$store.state.farmer;
+    console.log("PARAM: " + params);
 
     AXIOS.post(`/lands`, params)
       .then(response => {
@@ -197,13 +190,6 @@ export default {
   updated() {
     console.log("Service has been updated");
 
-this.$eventHub.$on('FARMER', payload => {
-          console.log('in here!');
-           this.farmerId = payload.id;
-         });
-    console.log("id: " + this.farmerId);
-
-
             let params = new URLSearchParams();
             params.append("landid", this.selectedLand.id);
 
@@ -231,6 +217,9 @@ this.$eventHub.$on('FARMER', payload => {
         document.getElementById('trees_id').style.display='block';
       }
 
+    },
+    openAddModal() {
+        document.getElementById('addElement_id').style.display='block';
     },
     closeAll() {
       for (

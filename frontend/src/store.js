@@ -8,10 +8,21 @@ export const store = new Vuex.Store({
       farmer: null
   },
   mutations: {
-      login(state, id) {
+      LOGIN : (state, id) => {
         state.farmer = id;
       }
   },
-  actions: {},
+  actions: {
+    SET_FARMER_ID : (context, payload) => {
+      let idIsValid = payload != null; 
+      if (idIsValid) {
+        context.commit("LOGIN", payload);
+        window.location.href= "/#/callservice";
+      } else {
+        window.location.href="/#/";
+      }
+      
+   }
+  },
   getters: {},
 });

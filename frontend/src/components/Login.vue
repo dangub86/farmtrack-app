@@ -103,14 +103,9 @@ export default {
 methods: {
       // Fetches posts when the component is created.
       startchecker(){
-        const payload = {
-                    id: "this.id"
-            };
-          //this.$eventHub.$emit('FARMER', payload);
 
         if(this.checking===true){
-          window.location.href= "/#/callservice?id=" +this.id;
-          this.$state.commit('login', this.id);
+          this.$store.dispatch('SET_FARMER_ID', this.id);
         }
         else{
           window.location.href="/#/";
