@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
-
+import { store } from './store'
 Vue.prototype.$eventHub = new Vue(); // Global event bus...
 
 Vue.config.productionTip = false
@@ -15,6 +15,7 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 
 new Vue({
+    store,
     router,
     render: h => h(App)
 }).$mount('#app')

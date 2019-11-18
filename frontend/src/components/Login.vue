@@ -106,11 +106,11 @@ methods: {
         const payload = {
                     id: "this.id"
             };
-          this.$eventHub.$emit('FARMER', payload);
+          //this.$eventHub.$emit('FARMER', payload);
 
         if(this.checking===true){
-
           window.location.href= "/#/callservice?id=" +this.id;
+          this.$state.commit('login', this.id);
         }
         else{
           window.location.href="/#/";

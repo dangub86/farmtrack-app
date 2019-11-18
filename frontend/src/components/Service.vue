@@ -87,7 +87,7 @@
             variant="primary bg-success">
             Aggiungi elemento
         </b-button>
-        {{farmerId}}
+        {{this.$store.state.farmer}}
       </b-card>
     </div>
   </body>
