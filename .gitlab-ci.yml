@@ -30,24 +30,10 @@ cache:
 
 # Stages to execute.
 stages:
-  - verify
   - build
   - staging
   - production
 
-# For merge requests do not `deploy` but only run `verify`.
-# See https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
-.verify: &verify
-  stage: verify
-  script:
-    - 'npm install --save vuex'
-    - 'mvn $MAVEN_CLI_OPTS verify'
-  except:
-    - master
-
-# Verify merge requests using JDK8
-verify:jdk8:
-  <<: *verify
 
 # Build stage.
 build:
