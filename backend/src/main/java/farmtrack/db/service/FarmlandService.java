@@ -9,7 +9,7 @@ import java.util.List;
 public interface FarmlandService {
     FarmLand getLandByName(String name);
     void save(FarmLand farmLand);
-    List<FarmLand> getLands(String farmerId);
+    List<FarmLand> getLands(String farmer);
     FarmLand getLandById(String land_id);
     boolean hasTree(String land_id);
     List<Tree> getTreesByLand(String land_id);

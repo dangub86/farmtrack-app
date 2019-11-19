@@ -87,7 +87,6 @@
             variant="primary bg-success">
             Aggiungi elemento
         </b-button>
-        {{this.$store.state.farmer}}
       </b-card>
     </div>
   </body>
@@ -140,10 +139,13 @@ export default {
   created() {
   console.log("Service has been created");
 
-    let params = this.$store.state.farmer;
-    console.log("PARAM: " + params);
+    let params = new URLSearchParams();
+    params.append("ID", this.$store.state.farmer);
+    
+    let farmer = this.$store.state.farmer;
+    console.log("FARMER: " + farmer);
 
-    AXIOS.post(`/lands`, params)
+    AXIOS.post(`/landsByFarmer`, params)
       .then(response => {
         this.lands = response.data;
         console.log(this.lands);
@@ -231,7 +233,7 @@ export default {
       }
     },
     logout() {
-      this.accesso = null;
+      this.$store.dispatch("LOGOUT");
       window.location.href = "/#/";
     },
     onclick: function(event) {

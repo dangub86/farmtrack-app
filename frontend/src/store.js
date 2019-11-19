@@ -10,6 +10,9 @@ export const store = new Vuex.Store({
   mutations: {
       LOGIN : (state, id) => {
         state.farmer = id;
+      },
+      LOGOUT : state => {
+        state.farmer = null;
       }
   },
   actions: {
@@ -22,6 +25,9 @@ export const store = new Vuex.Store({
         window.location.href="/#/";
       }
       
+   },
+   LOGOUT : context => {
+      context.commit("LOGOUT");
    }
   },
   getters: {},

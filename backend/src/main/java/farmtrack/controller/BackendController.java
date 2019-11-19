@@ -124,10 +124,12 @@ public class BackendController {
         return "";
     }
 
-    @RequestMapping(path="/lands", method = RequestMethod.POST)
+    @RequestMapping(path="/landsByFarmer", method = RequestMethod.POST)
     public @ResponseBody
-    List<FarmLand> getLands(@RequestParam("farmer") String farmerId) {
-        return farmlandService.getLands(farmerId);
+    List<FarmLand> getLands(@RequestParam("ID") String farmer) {
+        System.out.println(farmer);
+        System.out.println(farmlandService.getLands(farmer));
+        return farmlandService.getLands(farmer);
     }
 
     @RequestMapping(path="/landHasTree", method = RequestMethod.POST)

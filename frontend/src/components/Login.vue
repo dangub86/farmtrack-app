@@ -27,6 +27,7 @@
               v-model="login.email"
               class="input100"
               placeholder="email"
+              key="login-email"
               required
             >
 						<span class="focus-input100" ></span>
@@ -41,6 +42,7 @@
               @input="validator()"
               class="input100"
               placeholder="password"
+              key="login-pwd"
               required
             >
 						<span class="focus-input100" ></span>

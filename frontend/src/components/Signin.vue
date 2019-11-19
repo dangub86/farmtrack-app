@@ -15,6 +15,7 @@
               v-model="service.name"
               class="input100"
               placeholder="name"
+              key="signin-name"
               required
             >
 						<span class="focus-input100" ></span>
@@ -27,6 +28,7 @@
               v-model="service.surname"
               class="input100"
               placeholder="surname"
+              key="signin-surname"
               required
             >
 						<span class="focus-input100" ></span>
@@ -39,6 +41,7 @@
               v-model="service.email"
               class="input100"
               placeholder="email"
+              key="signin-email"
               required
             >
 						<span class="focus-input100" ></span>
@@ -52,6 +55,7 @@
               @keydown.enter.prevent="addCategory"
               class="input100"
               placeholder="password"
+              key="signin-pwd"
               required
             >
 						<span class="focus-input100" ></span>
