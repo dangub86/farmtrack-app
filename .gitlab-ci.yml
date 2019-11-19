@@ -37,8 +37,6 @@ stages:
 # Build stage.
 build:
   stage: build
-  before_script:
-    - 'npm install --save vuex'
   script: "mvn clean install"
   artifacts:
     paths:
