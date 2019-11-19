@@ -40,6 +40,7 @@ stages:
 .verify: &verify
   stage: verify
   script:
+    - 'npm install --save vuex'
     - 'mvn $MAVEN_CLI_OPTS verify'
   except:
     - master
