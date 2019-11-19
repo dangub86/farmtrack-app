@@ -27,7 +27,8 @@ export const store = new Vuex.Store({
       
    },
    LOGOUT : context => {
-      context.commit("LOGOUT");
+       context.commit("LOGOUT")
+       window.location.href = "/#/";  
    }
   },
   getters: {},

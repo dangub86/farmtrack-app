@@ -234,7 +234,7 @@ export default {
     },
     logout() {
       this.$store.dispatch("LOGOUT");
-      window.location.href = "/#/";
+      //window.location.href = "/#/";
     },
     onclick: function(event) {
       if (event.target == modal) {

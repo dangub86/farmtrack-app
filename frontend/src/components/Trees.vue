@@ -1,36 +1,45 @@
 <template >
-  <form class="modal-content" action>
+  <div class="modal-content" action>
     <span @click="closeAll()" class="close" title="Close Modal">&times;</span>
 
     <div class="container">
       <br />
       <br />
- 
+
       <b-button offset="25" text="Aggiorna" class="update-btn" @click="loadTrees">
         <i class="fas fa-sync-alt"></i>
       </b-button>
       <hr />
-      <div class="row">
-        <div>
-          <b-card
-            v-for="tree in trees"
-            :key="tree.id"
-            :title="tree.name"
-            img-alt="Tree"
-            tag="article"
-            class="ml-3 tree-card"
-          >
-          <img src="../assets/tree.webp" class="tree-img" style="max-width: 5rem;" />
-         <p>{{tree.genre}} <span>({{tree.variety}})</span></p>
-          <br>
-            <b-card-text>{{tree.name}}</b-card-text>
 
-            <b-button href="#" variant="primary">Edit</b-button>
-          </b-card>
-        </div>
-      </div>
+
+      <b-card-group 
+        id="treeCardGroup"
+        class="card-horizontal" 
+        v-for="(tree, index) in currentPageItems" :key="index"
+      >
+        
+        <b-card
+          :title="tree.name"
+          img-alt="Tree"
+          class="m-1 tree-card"
+         >
+        
+          <img src="../assets/tree.webp" class="tree-img" />
+        </b-card>
+      </b-card-group>
+
+     
+
+ 
+ <b-row>
+      <b-col md="6" class="my-1">
+        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
+      </b-col>
+    </b-row>
+
+    
     </div>
-  </form>
+  </div>
 </template>
 
 
@@ -49,8 +58,44 @@ export default {
       selectedTree: null,
       showResponse: false,
       retrievedUser: {},
-      showRetrievedUser: false
+      showRetrievedUser: false,
+      
+      currentPage: 1,
+      perPage: 8,
+      paginated_items: {},
+      currentPageIndex:0,
+      nbPages:0
     };
+  },
+  computed: {
+    formattedTrees() {
+      return this.trees.reduce((c, n, i) => {
+        if (i % 2 === 0) c.push([]);
+        c[c.length - 1].push(n);
+        return c;
+      }, []);
+    },
+    totalRows() {
+      return this.trees.length;
+    },
+      pageCount() {
+      let l = this.totalRows,
+        s = this.perPage;
+      return Math.floor(l / s);
+    },
+      currentPageItems() {
+          let lengthAll =this.trees.length;
+      this.nbPages = 0;
+        for (let i = 0; i < lengthAll; i = i + this.perPage) {
+        this.paginated_items[this.nbPages] = this.trees.slice(
+          i,
+          i + this.perPage
+        );
+        this.nbPages++;
+      }
+       return this.paginated_items[this.currentPage-1];
+  
+    }
   },
   created() {
     console.log("Trees has been created");
@@ -172,13 +217,25 @@ hr {
 }
 
 .tree-card {
+  width: 40vw;
+}
 
-  width: 80vw;
+.tree-card .card-title {
+  position: absolute;
+  bottom: 5%;
+  right: 0;
+  background-color: rgba(85, 85, 85, 0.651);
+  color: white;
+  padding: 5% 20%;
 }
 
 .tree-img {
-  position: absolute;
-  top: 0;
-  right: 0;
+  max-width: 100%;
+  max-height: 100%;
 }
+
+.card-horizontal.card-group {
+  flex-direction: row;
+}
+
 </style>
