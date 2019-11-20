@@ -1,45 +1,42 @@
 <template >
-  <div class="modal-content" action>
+  <div class="container-fluid">
     <span @click="closeAll()" class="close" title="Close Modal">&times;</span>
-
-    <div class="container">
       <br />
       <br />
+      <br>
 
       <b-button offset="25" text="Aggiorna" class="update-btn" @click="loadTrees">
         <i class="fas fa-sync-alt"></i>
       </b-button>
       <hr />
 
-
-      <b-card-group 
-        id="treeCardGroup"
-        class="card-horizontal" 
-        v-for="(tree, index) in currentPageItems" :key="index"
-      >
-        
+      <b-card-group class="card-horizontal align-self-center" >
         <b-card
           :title="tree.name"
           img-alt="Tree"
           class="m-1 tree-card"
-         >
-        
+          v-for="(tree, i) in currentPageItems"
+          :key="i"
+        >
           <img src="../assets/tree.webp" class="tree-img" />
         </b-card>
       </b-card-group>
 
-     
-
- 
- <b-row>
-      <b-col md="6" class="my-1">
-        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
-      </b-col>
-    </b-row>
-
-    
+    <br>
+    <br>
+    <div class="treePagination">
+     <b-pagination
+            v-model="currentPage"
+            :total-rows="totalRows"
+            :per-page="perPage"
+            size="lg"
+            pills
+            align="center"
+            class="overflow-auto"
+          />
     </div>
-  </div>
+    </div>
+ 
 </template>
 
 
@@ -59,42 +56,30 @@ export default {
       showResponse: false,
       retrievedUser: {},
       showRetrievedUser: false,
-      
       currentPage: 1,
       perPage: 8,
       paginated_items: {},
-      currentPageIndex:0,
-      nbPages:0
+      currentPageIndex: 0,
+      nbPages: 0
     };
   },
   computed: {
-    formattedTrees() {
-      return this.trees.reduce((c, n, i) => {
-        if (i % 2 === 0) c.push([]);
-        c[c.length - 1].push(n);
-        return c;
-      }, []);
-    },
     totalRows() {
       return this.trees.length;
     },
-      pageCount() {
-      let l = this.totalRows,
-        s = this.perPage;
-      return Math.floor(l / s);
-    },
-      currentPageItems() {
-          let lengthAll =this.trees.length;
+    currentPageItems() {
+      let lengthAll = this.trees.length;
       this.nbPages = 0;
-        for (let i = 0; i < lengthAll; i = i + this.perPage) {
+      for (let i = 0; i < lengthAll; i = i + this.perPage) {
         this.paginated_items[this.nbPages] = this.trees.slice(
           i,
           i + this.perPage
         );
+
         this.nbPages++;
       }
-       return this.paginated_items[this.currentPage-1];
-  
+
+      return this.paginated_items[this.currentPage - 1];
     }
   },
   created() {
@@ -185,28 +170,6 @@ hr {
   }
 }
 
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: #474e5d65;
-  padding-top: 0px;
-}
-/* Modal Content/Box */
-.modal-content {
-  top: 8%;
-  background-color: #fefefe;
-  margin: 5% auto 15% auto;
-  border: 1px solid #888;
-  width: 90%;
-}
-
 .update-btn {
   position: absolute;
   top: 5vh;
@@ -217,7 +180,9 @@ hr {
 }
 
 .tree-card {
-  width: 40vw;
+  width: 43.8vw;
+  justify-content: space-around;
+  box-shadow:  1px 1px 1px rgba(85, 85, 85, 0.651),  -1px -1px 1px rgba(85, 85, 85, 0.651);
 }
 
 .tree-card .card-title {
@@ -234,8 +199,26 @@ hr {
   max-height: 100%;
 }
 
-.card-horizontal.card-group {
+.card-horizontal {
+  display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 15%;
 }
+
+.treePagination {
+  position: absolute;
+  left: 0 !important;
+  margin-bottom: 1vh !important;
+  padding: 0;
+}
+
+.pagination-lg  {
+  box-shadow: -5px 2px 3px lime, -5px -2px 3px lime;
+  padding-bottom: 3%;
+  padding-top: 3%;
+  margin-bottom: 0;
+}
+
 
 </style>

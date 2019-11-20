@@ -283,12 +283,12 @@ export default {
 }
 .modal-max {
   top: 0;
+  left: 0;
   background-color: #fefefe;
   margin: 0 !important;
   padding: 0 !important;
-  border: 1px solid #888;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
 }
 
 .logout {
