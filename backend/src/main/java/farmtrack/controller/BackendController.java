@@ -132,6 +132,14 @@ public class BackendController {
         return farmlandService.getLands(farmer);
     }
 
+    @RequestMapping(path="/treeDetails", method = RequestMethod.POST)
+    public @ResponseBody
+     Tree getTreeDetails(@RequestParam("ID") String id) {
+        System.out.println(id);
+        System.out.println(treeService.getTreeById(id));
+        return treeService.getTreeById(id);
+    }
+
     @RequestMapping(path="/landHasTree", method = RequestMethod.POST)
     public @ResponseBody
     boolean landHasTree(@RequestParam("land") String land) {

@@ -7,4 +7,5 @@ import java.util.List;
 public interface TreeService {
     Tree save(Tree tree);
     List<Tree> getTrees();
+    Tree getTreeById(String id);
 }

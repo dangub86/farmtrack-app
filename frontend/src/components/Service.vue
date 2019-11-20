@@ -141,9 +141,6 @@ export default {
 
     let params = new URLSearchParams();
     params.append("ID", this.$store.state.farmer);
-    
-    let farmer = this.$store.state.farmer;
-    console.log("FARMER: " + farmer);
 
     AXIOS.post(`/landsByFarmer`, params)
       .then(response => {

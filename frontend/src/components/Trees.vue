@@ -5,6 +5,11 @@
       <br />
       <br>
 
+  <!-- Modals -->
+    <div id="treeDetails_id" class="modal">
+      <TreeDetails :treeId="selectedTree" />
+    </div>
+
       <b-button offset="25" text="Aggiorna" class="update-btn" @click="loadTrees">
         <i class="fas fa-sync-alt"></i>
       </b-button>
@@ -17,6 +22,7 @@
           class="m-1 tree-card"
           v-for="(tree, i) in currentPageItems"
           :key="i"
+          @click="openTreeModal(tree.id)"
         >
           <img src="../assets/tree.webp" class="tree-img" />
         </b-card>
@@ -43,6 +49,7 @@
 <script>
 import { AXIOS } from "./http-common";
 import EventBus from "../eventBus";
+import TreeDetails from "./TreeDetails";
 
 export default {
   name: "Trees",
@@ -52,6 +59,7 @@ export default {
       response: [],
       errors: [],
       trees: [],
+      modal: "treeDetails_id",
       selectedTree: null,
       showResponse: false,
       retrievedUser: {},
@@ -88,6 +96,9 @@ export default {
       this.trees = trees;
     });
   },
+   components: {
+    TreeDetails
+  },
   methods: {
     loadTrees() {
       let params = new URLSearchParams();
@@ -101,6 +112,10 @@ export default {
         .catch(e => {
           this.errors.push(e);
         });
+    },
+    openTreeModal(id) {
+        this.selectedTree = id;
+         document.getElementById('treeDetails_id').style.display='block';
     },
     closeAll() {
       for (
@@ -220,5 +235,25 @@ hr {
   margin-bottom: 0;
 }
 
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: #474e5d65;
+  padding-top: 0px;
+}
+/* Modal Content/Box */
+.modal-content {
+  top: 8%;
+  background-color: #fefefe;
+  margin: 5% auto 15% auto;
+  border: 1px solid #888;
+  width: 90%;
+}
 
 </style>
