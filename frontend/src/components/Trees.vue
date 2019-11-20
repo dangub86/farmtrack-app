@@ -1,19 +1,43 @@
 <template >
   <div class="container-fluid">
-    <span @click="closeAll()" class="close" title="Close Modal">&times;</span>
-      <br />
-      <br />
-      <br>
 
-  <!-- Modals -->
+<b-container class="icons">
+  <b-row class="flex">
+    <b-col>
+        <b-button text="Aggiorna" class="update-btn" @click="loadTrees">
+                   <i class="fas fa-sync-alt"></i>
+        </b-button>
+    </b-col>
+    <b-col>
+    <b-button text="Aggiorna" class="update-btn" @click="loadTrees">
+                       <i class="fas fa-sliders-h"></i>
+            </b-button>
+      </b-col>
+    <b-col>
+    <b-button text="Aggiorna" class="update-btn" @click="closeAll()">
+                           <i class="fas fa-times"></i>
+                </b-button>
+      </b-col>
+  </b-row>
+</b-container>
+
+
+    <!-- Searchbar -->
+        <div class="container h-100">
+            <div class="d-flex justify-content-center h-100">
+              <div class="searchbar">
+                <input  class="search_input" type="text" name="" placeholder="Search...">
+                <a  class="search_icon"><i class="fas fa-search"></i></a>
+              </div>
+            </div>
+          </div>
+
+      <hr />
+
+<!-- Modals -->
     <div id="treeDetails_id" class="modal">
       <TreeDetails :treeId="selectedTree" />
     </div>
-
-      <b-button offset="25" text="Aggiorna" class="update-btn" @click="loadTrees">
-        <i class="fas fa-sync-alt"></i>
-      </b-button>
-      <hr />
 
       <b-card-group class="card-horizontal align-self-center" >
         <b-card
@@ -150,6 +174,13 @@ html {
 .container {
   padding: 16px;
 }
+.flex {
+  display: flex;
+  justify-content: space-around;
+}
+.icons .col {
+    flex-grow: 0;
+}
 hr {
   border: 1px solid #f1f1f1;
   margin-bottom: 25px;
@@ -164,6 +195,7 @@ hr {
   font-weight: bold;
   color: black;
 }
+
 
 .close:hover,
 .close:focus {
@@ -186,16 +218,14 @@ hr {
 }
 
 .update-btn {
-  position: absolute;
-  top: 5vh;
-  left: 5vw;
+  justify-content: space-around;
   background-color: rgb(110, 110, 110) !important;
   border-radius: 25px;
   opacity: 0.6;
 }
 
 .tree-card {
-  width: 43.8vw;
+  width: 43.5vw;
   justify-content: space-around;
   box-shadow:  1px 1px 1px rgba(85, 85, 85, 0.651),  -1px -1px 1px rgba(85, 85, 85, 0.651);
 }
@@ -247,6 +277,7 @@ hr {
   background-color: #474e5d65;
   padding-top: 0px;
 }
+
 /* Modal Content/Box */
 .modal-content {
   top: 8%;
@@ -255,5 +286,56 @@ hr {
   border: 1px solid #888;
   width: 90%;
 }
+
+ .searchbar{
+    margin-bottom: auto;
+    margin-top: auto;
+    height: 60px;
+    background-color: #353b48;
+    border-radius: 30px;
+    padding: 10px;
+    }
+
+    .search_input{
+    color: white;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    caret-color:transparent;
+    line-height: 40px;
+    transition: width 0.4s linear;
+    }
+
+    .searchbar> .search_input{
+    padding: 0 10px;
+    width: 85vw;
+    caret-color:red;
+    transition: width 0.4s linear;
+    }
+    .searchbar > .search_icon{
+    background: white;
+    color: #e74c3c;
+    }
+
+    .search_icon{
+    height: 40px;
+    width: 45px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color:white;
+    border: 1px solid #353b48;
+    margin: -10px;
+    }
+
+    ::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: #ffffff !important;
+      opacity: 1; /* Firefox */
+      font-size: 20px !important;
+    }
 
 </style>
