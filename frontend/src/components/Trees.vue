@@ -4,17 +4,17 @@
 <b-container class="icons">
   <b-row class="flex">
     <b-col>
-        <b-button text="Aggiorna" class="update-btn" @click="loadTrees">
+        <b-button text="Aggiorna" class="icon-btn" @click="loadTrees">
                    <i class="fas fa-sync-alt"></i>
         </b-button>
     </b-col>
     <b-col>
-    <b-button text="Aggiorna" class="update-btn" @click="loadTrees">
+    <b-button text="Filters" class="icon-btn" @click="openFiltersModal">
                        <i class="fas fa-sliders-h"></i>
             </b-button>
       </b-col>
     <b-col>
-    <b-button text="Aggiorna" class="update-btn" @click="closeAll()">
+    <b-button text="Close" class="icon-btn" @click="closeAll()">
                            <i class="fas fa-times"></i>
                 </b-button>
       </b-col>
@@ -141,6 +141,9 @@ export default {
         this.selectedTree = id;
          document.getElementById('treeDetails_id').style.display='block';
     },
+    openFiltersModal() {
+         //document.getElementById('treeFilters_id').style.display='block';
+    },
     closeAll() {
       for (
         var i = 0;
@@ -217,7 +220,7 @@ hr {
   }
 }
 
-.update-btn {
+.icon-btn {
   justify-content: space-around;
   background-color: rgb(110, 110, 110) !important;
   border-radius: 25px;
