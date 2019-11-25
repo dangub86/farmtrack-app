@@ -26,6 +26,7 @@
     >
       <i class="fas fa-sign-out-alt text-white"></i>
     </b-button>
+    {{farmerId}}
   </div>
 
   <body>
@@ -87,6 +88,7 @@
             variant="primary bg-success">
             Aggiungi elemento
         </b-button>
+        
       </b-card>
     </div>
   </body>
@@ -111,7 +113,7 @@ export default {
       modal: "addElement_id",
       modal: "trees_id",
       accesso: null,
-      farmerId: null,
+      farmerId: 0,
       lands: [],
       firstLand: null,
       treeAdded: null,
@@ -139,8 +141,9 @@ export default {
   created() {
   console.log("Service has been created");
 
+    this.farmerId = this.$store.state.farmer;
     let params = new URLSearchParams();
-    params.append("ID", this.$store.state.farmer);
+    params.append("ID", this.farmerId);
 
     AXIOS.post(`/landsByFarmer`, params)
       .then(response => {
@@ -204,6 +207,9 @@ export default {
                             this.errors.push(e);
                       });
 
+  },
+  destroyed() {
+    console.log("Service has been destroyed");
   },
   components: {
     AddLand,
