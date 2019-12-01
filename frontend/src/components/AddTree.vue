@@ -70,15 +70,20 @@
 
 <script>
 import { AXIOS } from "./http-common";
-import EventBus from '../eventBus'
+import EventBus from '../eventBus';
+import { closeMixin } from '../close-mixin';
 
 export default {
   name: "tree",
   props: ["idland"],
+  mixins: [closeMixin],
   data() {
     return {
       response: [],
       errors: [],
+      success: false,
+      error: false,
+      message: "",
       tree: {
         id: "",
         name: "",
@@ -97,15 +102,7 @@ export default {
     };
   },
   methods: {
-    closeAll() {
-      for (
-        var i = 0;
-        i < document.getElementsByClassName("modal").length;
-        i++
-      ) {
-        document.getElementsByClassName("modal")[i].style.display = "none";
-      }
-    },
+  
     // Fetches posts when the component is created.
     addTree() {
       var params = new URLSearchParams();
@@ -127,7 +124,8 @@ export default {
                     updated: true
             };
           EventBus.$emit('TREE_ADDED', payload);
-          this.closeAll();
+          this.success = true;
+          this.responseAfterSubmit();
         })
         .catch(e => {
           this.errors.push(e);

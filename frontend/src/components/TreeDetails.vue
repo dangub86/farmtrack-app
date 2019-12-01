@@ -1,6 +1,6 @@
 <template >
   <div class="container-fluid modal-content">
-        <span @click="closeModal()" class="close" title="Close Modal">&times;</span>
+        <span @click="close('treeDetails_id')" class="close" title="Close Modal">&times;</span>
       <br />
       <br />
       <br>
@@ -47,10 +47,12 @@
 <script>
 import { AXIOS } from "./http-common";
 import EventBus from "../eventBus";
+import { closeMixin } from '../close-mixin';
 
 export default {
   name: "TreeDetails",
   props: ["treeId"],
+  mixins: [closeMixin],
   data() {
     return {
       response: [],
@@ -71,10 +73,18 @@ export default {
   },
   created() {
     console.log("TreeDetails has been created");
-   
+    this.populate();
+  },
+  mounted() {
+    console.log("TreeDetails has been mounted");
+    this.populate();
   },
   updated() {
       console.log("TreeDetails has been updated");
+      this.populate();
+  },
+  methods: {
+    populate() {
        let params = new URLSearchParams();
        params.append("ID", this.treeId);
 
@@ -92,10 +102,6 @@ export default {
       .catch(e => {
         this.errors.push(e);
       });
-  },
-  methods: {
-    closeModal() {
-        document.getElementById("treeDetails_id").style.display = "none";
     }
   }
 };

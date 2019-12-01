@@ -4,7 +4,6 @@
   <div id="nav" class="flex bg-dark">
     <b-dropdown
       id="ddown-offset"
-      offset="25"
       text="+"
       variant="btn-block text-white bg-success btn-lg"
       class="m-2 w-15"
@@ -13,12 +12,11 @@
       <b-dropdown-item
         onclick="document.getElementById('addLand_id').style.display='block'"
         style="width:auto;"
-        @click="closeAll()"
+        @click="openAddModal()"
       >Aggiungi Terreno</b-dropdown-item>
     </b-dropdown>
 
     <b-button
-      offset="25"
       text="Logout"
       variant=" btn-block"
       class="m-2 w-15 logout btn-block btn-lg"
@@ -26,6 +24,7 @@
     >
       <i class="fas fa-sign-out-alt text-white"></i>
     </b-button>
+    {{farmerId}}
   </div>
 
   <body>
@@ -87,6 +86,7 @@
             variant="primary bg-success">
             Aggiungi elemento
         </b-button>
+        
       </b-card>
     </div>
   </body>
@@ -111,7 +111,7 @@ export default {
       modal: "addElement_id",
       modal: "trees_id",
       accesso: null,
-      farmerId: null,
+      farmerId: 0,
       lands: [],
       firstLand: null,
       treeAdded: null,
@@ -139,8 +139,9 @@ export default {
   created() {
   console.log("Service has been created");
 
+    this.farmerId = this.$store.state.farmer;
     let params = new URLSearchParams();
-    params.append("ID", this.$store.state.farmer);
+    params.append("ID", this.farmerId);
 
     AXIOS.post(`/landsByFarmer`, params)
       .then(response => {
@@ -205,6 +206,9 @@ export default {
                       });
 
   },
+  destroyed() {
+    console.log("Service has been destroyed");
+  },
   components: {
     AddLand,
     AddElement,
@@ -251,7 +255,8 @@ export default {
 }
 .flex {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  margin: auto;
 }
 .addBtn {
   background: green;
@@ -290,5 +295,6 @@ export default {
 
 .logout {
   width: auto;
+  margin-left: auto !important;
 }
 </style>
