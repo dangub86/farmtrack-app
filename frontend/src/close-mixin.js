@@ -9,9 +9,6 @@ export const closeMixin = {
             document.getElementsByClassName("modal")[i].style.display = "none";
           }
         },
-        close(id) {
-            document.getElementById(id).style.display = "none";
-        },
         responseAfterSubmit() {
           console.log("mixin starts...");
           if (this.success) {

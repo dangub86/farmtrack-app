@@ -4,12 +4,12 @@
 <b-container class="icons">
   <b-row class="flex">
     <b-col>
-        <b-button text="Aggiorna" class="icon-btn" @click="loadTrees()">
+        <b-button text="Aggiorna" class="icon-btn" @click="loadTrees">
                    <i class="fas fa-sync-alt"></i>
         </b-button>
     </b-col>
     <b-col>
-    <b-button text="Filters" class="icon-btn" @click="openFiltersModal()">
+    <b-button text="Filters" class="icon-btn" @click="openFiltersModal">
                        <i class="fas fa-sliders-h"></i>
             </b-button>
       </b-col>
@@ -37,10 +37,6 @@
 <!-- Modals -->
     <div id="treeDetails_id" class="modal">
       <TreeDetails :treeId="selectedTree" />
-    </div>
-
-    <div id="treeFilters_id" class="modal">
-      <Filters :treeId="selectedTree" />
     </div>
 
       <b-card-group class="card-horizontal align-self-center" >
@@ -78,7 +74,6 @@
 import { AXIOS } from "./http-common";
 import EventBus from "../eventBus";
 import TreeDetails from "./TreeDetails";
-import Filters from "./Filters";
 
 export default {
   name: "Trees",
@@ -126,8 +121,7 @@ export default {
     });
   },
    components: {
-    TreeDetails,
-    Filters
+    TreeDetails
   },
   methods: {
     loadTrees() {
@@ -148,7 +142,7 @@ export default {
          document.getElementById('treeDetails_id').style.display='block';
     },
     openFiltersModal() {
-         document.getElementById('treeFilters_id').style.display='block';
+         //document.getElementById('treeFilters_id').style.display='block';
     },
     closeAll() {
       for (
