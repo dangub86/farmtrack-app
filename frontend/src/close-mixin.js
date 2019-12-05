@@ -1,5 +1,8 @@
 export const closeMixin = {
     methods: {
+        close(id) {
+          document.getElementById(id).style.display = "none";
+        },
         closeAll() {
           for (
             var i = 0;

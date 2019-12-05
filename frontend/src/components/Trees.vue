@@ -74,9 +74,11 @@
 import { AXIOS } from "./http-common";
 import EventBus from "../eventBus";
 import TreeDetails from "./TreeDetails";
+import { closeMixin } from '../close-mixin';
 
 export default {
   name: "Trees",
+  mixins: [closeMixin],
   props: ["landid"],
   data() {
     return {
@@ -138,20 +140,11 @@ export default {
         });
     },
     openTreeModal(id) {
-        this.selectedTree = id;
-         document.getElementById('treeDetails_id').style.display='block';
+        this.$store.dispatch('SELECT_TREE', id);
+        document.getElementById('treeDetails_id').style.display='block';
     },
     openFiltersModal() {
          //document.getElementById('treeFilters_id').style.display='block';
-    },
-    closeAll() {
-      for (
-        var i = 0;
-        i < document.getElementsByClassName("modal").length;
-        i++
-      ) {
-        document.getElementsByClassName("modal")[i].style.display = "none";
-      }
     }
   }
 };

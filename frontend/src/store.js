@@ -5,7 +5,8 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-      farmer: null
+      farmer: null,
+      selectedTree: null
   },
   mutations: {
       LOGIN : (state, id) => {
@@ -13,6 +14,9 @@ export const store = new Vuex.Store({
       },
       LOGOUT : state => {
         state.farmer = null;
+      },
+      SELECT_TREE : (state, id) => {
+        state.selectedTree = id;
       }
   },
   actions: {
@@ -29,7 +33,10 @@ export const store = new Vuex.Store({
    LOGOUT : context => {
        context.commit("LOGOUT")
        window.location.href = "/#/";  
-   }
+   },
+   SELECT_TREE : (context, payload) => {
+    context.commit("SELECT_TREE", payload);
+}
   },
   getters: {},
 });

@@ -73,11 +73,11 @@ export default {
   },
   created() {
     console.log("TreeDetails has been created");
-    this.populate();
+    //this.populate();
   },
   mounted() {
     console.log("TreeDetails has been mounted");
-    this.populate();
+    //this.populate();
   },
   updated() {
       console.log("TreeDetails has been updated");
@@ -86,7 +86,8 @@ export default {
   methods: {
     populate() {
        let params = new URLSearchParams();
-       params.append("ID", this.treeId);
+       this.selectedTree = this.$store.state.selectedTree;
+       params.append("ID", this.selectedTree);
 
     AXIOS.post(`/treeDetails`, params)
       .then(response => {
